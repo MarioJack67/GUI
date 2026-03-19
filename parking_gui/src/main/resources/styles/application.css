@@ -1,0 +1,10 @@
+.myGridStyle Line
+{
+	
+}
+.grid-cell
+{
+	-fx-border-color: #FFFF00;
+	-fx-border-width: 4px 4px 4px 0;
+	-fx-background-color: black;
+}
