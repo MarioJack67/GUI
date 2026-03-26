@@ -18,6 +18,8 @@ public class RegistrationController implements Initializable {
 		
 	}
 	
+	private ParkingSpot currentSpot;
+	
 	@FXML
 	private TextField model;
 	@FXML
@@ -27,12 +29,17 @@ public class RegistrationController implements Initializable {
 	@FXML
 	private void retrieveInfo(ActionEvent event) {
 		modelValue = model.getText();
+		currentSpot.setTaken(true);
 		Stage stage = (Stage) submit.getScene().getWindow();
 		stage.close();
 	}
 	
 	public String getModel() {
 		return modelValue;
+	}
+	
+	public void readParkingSpot(ParkingSpot currentSpot) {
+		this.currentSpot = currentSpot;
 	}
 
 }
