@@ -1,12 +1,15 @@
 package jacks_test_fx.parking_gui;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class ParkingSpot {
 
 	//attributes
 	private ParkingType type;
 	private ParkingValues value;
 	private String parkingID;
-	private boolean spotTaken;
+	private final BooleanProperty spotTaken = new SimpleBooleanProperty(false);
 	@SuppressWarnings("unused")
 	private User user;
 	
@@ -17,11 +20,10 @@ public class ParkingSpot {
 	 * @param spotTaken
 	 * @param user
 	 */
-	public ParkingSpot(ParkingType type, ParkingValues value, String parkingID, boolean spotTaken, User user) {
+	public ParkingSpot(ParkingType type, ParkingValues value, String parkingID, User user) {
 		this.type = type;
 		this.value = value;
 		this.parkingID = parkingID;
-		this.spotTaken = spotTaken;
 		this.user = user;
 	}
 	
@@ -31,11 +33,10 @@ public class ParkingSpot {
 	 * @param value - Premium, Standard, Cheap
 	 * @param spotTaken - is there currently a car in the spot?
 	 */
-	public ParkingSpot(ParkingType type, ParkingValues value, boolean spotTaken)
+	public ParkingSpot(ParkingType type, ParkingValues value)
 	{
 		this.type = type;
 		this.value = value;
-		this.spotTaken = spotTaken;
 	}
 
 	/**
@@ -52,19 +53,18 @@ public class ParkingSpot {
 		this.parkingID = parkingID;
 	}
 
-	/**
-	 * @return the spotTaken
-	 */
-	public boolean isSpotTaken() {
+	public final boolean isTaken() {
+		return spotTaken.get();
+	}
+	
+	public final void setTaken(boolean value) {
+		spotTaken.set(value);
+	}
+	
+	public BooleanProperty takenProperty() {
 		return spotTaken;
 	}
 
-	/**
-	 * @param spotTaken the spotTaken to set
-	 */
-	public void setSpotTaken(boolean spotTaken) {
-		this.spotTaken = spotTaken;
-	}
 
 	/**
 	 * @return the type

@@ -16,7 +16,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button mnemonicParsing="false" onAction="#openRegistration" prefHeight="133.0" prefWidth="300.0" styleClass="grid-cell" text="Button" />
-      <Button mnemonicParsing="false" prefHeight="132.0" prefWidth="300.0" styleClass="grid-cell" text="Button" GridPane.rowIndex="1" />
+      <Button fx:id="spot1" mnemonicParsing="false" onAction="#openRegistration" prefHeight="133.0" prefWidth="300.0" styleClass="grid-cell" />
+      <Button fx:id="spot2" mnemonicParsing="false" onAction="#openRegistration" prefHeight="132.0" prefWidth="300.0" styleClass="grid-cell" GridPane.rowIndex="1" />
    </children>
 </GridPane>
