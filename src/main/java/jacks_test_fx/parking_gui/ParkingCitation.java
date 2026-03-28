@@ -9,7 +9,7 @@ import java.time.LocalDate;
  */
 public class ParkingCitation {
 	private double feeAmount = 15.00;
-	private LocalDate dateCited, payDeadline;
+	private LocalDate citationDate, paymentDeadline;
 	private Car carCited;
 	private User customerCited;
 	private String citationNotes;
@@ -19,28 +19,28 @@ public class ParkingCitation {
 	//========================================================================
 	/**
 	 * Constructor takes a car object and derives other fields automatically.
-	 * dateCited gets the current date.
-	 * payDeadline gets adds 3 months to the dateCited.
+	 * citationDate gets the current date.
+	 * paymentDeadline gets adds 3 months to the citationDate.
 	 * customerCited is taken from the cars owner field.
 	 */
 	public ParkingCitation(Car car) {
 		carCited = car;
-		dateCited = LocalDate.now();
-		payDeadline = dateCited.plusMonths(3);
+		citationDate = LocalDate.now();
+		paymentDeadline = citationDate.plusMonths(3);
 		customerCited = car.getOwner();
 		return;
 	}
 	
 	/**
 	 * Constructor takes a car object and a String of notes and derives other fields automatically.
-	 * dateCited gets the current date.
-	 * payDeadline gets adds 3 months to the dateCited.
+	 * citationDate gets the current date.
+	 * paymentDeadline gets adds 3 months to the citationDate.
 	 * customerCited is taken from the cars owner field.
 	 */
 	public ParkingCitation(Car car, String notes) {
 		carCited = car;
-		dateCited = LocalDate.now();
-		payDeadline = dateCited.plusMonths(3);
+		citationDate = LocalDate.now();
+		paymentDeadline = citationDate.plusMonths(3);
 		customerCited = car.getOwner();
 		citationNotes = notes;
 		return;
@@ -58,17 +58,17 @@ public class ParkingCitation {
 	 * Gets the date the citation was given.
 	 * @return a LocalDate value representing when the citation was given.
 	 */
-	public LocalDate getDateCited() { return dateCited; }
+	public LocalDate getcitationDate() { return citationDate; }
 	/**
 	 * Gets the payment deadline for the citation.
 	 * @return a LocalDate value representing when the citation must be payed by.
 	 */
-	public LocalDate getPayDeadline() { return payDeadline; }
+	public LocalDate getpaymentDeadline() { return paymentDeadline; }
 	/**
 	 * Gets the car being cited in the citation.
 	 * @return a Car object representing the car in the wrong.
 	 */
-	public Car getCarCited() { return carCited; }
+	public Car getcarCited() { return carCited; }
 	/**
 	 * Gets the owner of the car being cited.
 	 * @return a User object representing the person being cited.
