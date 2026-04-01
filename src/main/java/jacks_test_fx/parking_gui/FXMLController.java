@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -34,10 +35,10 @@ import javafx.stage.Window;
 public class FXMLController implements Initializable {
 	
 	//Buttons and lists from the GUI itself
-	@FXML private Button spot1;
-	@FXML private Button spot2;
+	@FXML private Button spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12;
+	List<Button> parkingButtons = new ArrayList<>();
 	List<ParkingSpot> parkingSpaces = new ArrayList<>();
-    
+	
     @FXML
     private void openRegistration(ActionEvent event) throws IOException {
     	Button currentSpot = (Button) event.getSource(); //find button that was clicked
@@ -75,12 +76,11 @@ public class FXMLController implements Initializable {
      * @param rb - Any resource bundles that need to be included.
      */
     public void initialize(URL url, ResourceBundle rb) {
-    	ParkingSpot parkingSpace1 = fetchParkingTable(1);
-    	ParkingSpot parkingSpace2 = fetchParkingTable(2);
-    	attachButtonListener(spot1, parkingSpace1);
-    	attachButtonListener(spot2, parkingSpace2);
-    	parkingSpaces.add(parkingSpace1);
-    	parkingSpaces.add(parkingSpace2);
+    	parkingButtons.addAll(Arrays.asList(spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12));
+    	for(int i = 0; i < parkingButtons.size(); i++) {
+    		parkingSpaces.add(fetchParkingTable(i + 1));
+    		attachButtonListener(parkingButtons.get(i), parkingSpaces.get(i));
+    	}
     }
 
 	/**
@@ -94,17 +94,17 @@ public class FXMLController implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if(newValue) {
-					spot.setStyle("-fx-background-color: #ff0000");
+					spot.setStyle("-fx-background-color: #8B0000");
 				} else {
-					spot.setStyle("-fx-background-color: #00ff00");
+					spot.setStyle("-fx-background-color: #8B0000");
 				}
 			}
 		});
 		
 		if(parkingSpace.isTaken()) {
-			spot.setStyle("-fx-background-color: #ff0000");
+			spot.setStyle("-fx-background-color: #8B0000"); //set to dark red
 		} else {
-			spot.setStyle("-fx-background-color: #00ff00");
+			spot.setStyle("-fx-background-color: #2C4C3B"); //set to dark green
 		}
 	} 
 	
