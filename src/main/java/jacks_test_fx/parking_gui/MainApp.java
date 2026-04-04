@@ -17,6 +17,7 @@ public class MainApp extends Application {
         stage=s;
 //        stage.setMinWidth(650);
 //        stage.setMinHeight(500);
+        //test
         setRoot("primary","Parking Lot Managment System");
     }
 
