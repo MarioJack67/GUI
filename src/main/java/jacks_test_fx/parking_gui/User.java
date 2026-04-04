@@ -64,12 +64,21 @@ public class User {
 	public String getPhoneNum() {
 		return phoneNum;
 	}
+	/**
+	 * Given a string this method tests it against a regex pattern verify that is a valid phone number format
+	 * This does not check to see is the phone number itself is valid in the wider world.
+	 * A phone number should fall into this type of example
+	 * 1-111-999-9999
+	 * or
+	 * 111-111-1111
+	 * @param phoneNum
+	 */
 	public void setPhoneNum(String phoneNum) {
 		//Validate that data is in correct format
-		String regexStr = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$";
-		if (phoneNum.matches(regexStr)) {
+		String regexPhoneNumber = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$";
+		if (phoneNum.matches(regexPhoneNumber)) {
 			this.phoneNum = phoneNum;
-		}//TODO: Need to  learn to throw errors.
+		}
 		
 	}
 	public int getAccessLevel() {
