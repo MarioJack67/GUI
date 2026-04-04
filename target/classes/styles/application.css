@@ -4,13 +4,13 @@
 }
 .grid-cell
 {
-	-fx-border-color: #FFFF00;
+	-fx-border-color: #fcba03;
 	-fx-border-width: 6px 4px 6px 0;
 	-fx-background-color: black;
 }
 .grid-cell-2
 {
-	-fx-border-color: #FFFF00;
+	-fx-border-color: #fcba03;
 	-fx-border-width: 6px 0px 6px 4px;
 	-fx-background-color: black;
 }
