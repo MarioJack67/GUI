@@ -5,10 +5,19 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 
 public class CitationController{
 
+	
+	
+	@FXML
+    private ComboBox<String> carComboBox;
+	public void initialize() {
+		carComboBox.getItems().addAll("Apple", "Banana", "Cherry");
+	}
+	
     @FXML
     private TextArea citationNotes;
 
