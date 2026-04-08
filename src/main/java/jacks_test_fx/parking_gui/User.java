@@ -17,7 +17,7 @@ public class User {
 	 * Tracks the User's unique ID
 	 * (Currently Unused)
 	 */
-	private String userID;
+	private int userID;
 	/**
 	 * The mailing address of the User
 	 */
@@ -73,12 +73,17 @@ public class User {
 	 * 111-111-1111
 	 * @param phoneNum
 	 */
-	public void setPhoneNum(String phoneNum) {
+	public static boolean validatePhoneNum(String phoneNum) {
 		//Validate that data is in correct format
 		String regexPhoneNumber = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$";
 		if (phoneNum.matches(regexPhoneNumber)) {
-			this.phoneNum = phoneNum;
+			return true;
 		}
+		return false;
+		
+	}
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
 		
 	}
 	public int getAccessLevel() {
@@ -87,7 +92,7 @@ public class User {
 	public void setAccessLevel(int accessLevel) {
 		this.accessLevel = accessLevel;
 	}
-	public String getUserID() {
+	public int getUserID() {
 		return userID;
 	}
 	public String getFname() {
@@ -111,11 +116,14 @@ public class User {
 	//= CONSTRUCTERS
 	//==================================
 
-	public User(String address, String fname, String lname, String phoneNum, int accessLevel) {
+	public User(int userID, String address, String fname, String lname, String phoneNum, int accessLevel) {
+		this.userID = userID;
 		this.address = address;
 		this.fname = fname;
 		this.lname = lname;
-		setPhoneNum(phoneNum);
+		if(validatePhoneNum(phoneNum)) {
+			setPhoneNum(phoneNum);			
+		}
 		this.accessLevel = accessLevel;
 	}
 
