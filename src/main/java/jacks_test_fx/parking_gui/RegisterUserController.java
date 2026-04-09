@@ -53,7 +53,7 @@ public class RegisterUserController implements Initializable {
 	private void submitUser() {
 		if(metRequirements()) {
 			//Insert the User into SQL Statement
-			String sql = "SELECT userID FROM Users (firstName, LastName, phoneNumber) VALUES (?, ?, ?, ?) ON CONFLICT(userID) DO UPDATE SET isTaken=excluded.isTaken;";
+			String sql = "INSERT INTO Users (firstName, LastName, address, phoneNumber) VALUES (?, ?, ?, ?);";
 			try(Connection conn = DriverManager.getConnection(FXMLController.databaseURL); //Establish connection to Database
 					PreparedStatement statement = conn.prepareStatement(sql)){
 
