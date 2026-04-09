@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Built-By: Gabe
-Build-Jdk: 21.0.8
-Main-Class: jacks_test_fx.parking_gui.MainApp
-Created-By: Maven Integration for Eclipse
-

@@ -1,9 +1,10 @@
 package jacks_test_fx.parking_gui;
 
+
 import java.io.IOException;
+
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +22,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -36,8 +39,11 @@ public class FXMLController implements Initializable {
 	
 	//Buttons and lists from the GUI itself
 	@FXML private Button spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12;
+	@FXML private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12;
 	List<Button> parkingButtons = new ArrayList<>();
 	List<ParkingSpot> parkingSpaces = new ArrayList<>();
+	List<ImageView> images = new ArrayList<>();
+	Image carImage = new Image(getClass().getResourceAsStream("/car.png"));
 	
     @FXML
     private void openRegistration(ActionEvent event) throws IOException {
@@ -77,10 +83,16 @@ public class FXMLController implements Initializable {
      */
     public void initialize(URL url, ResourceBundle rb) {
     	parkingButtons.addAll(Arrays.asList(spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12));
-    	for(int i = 0; i < parkingButtons.size(); i++) {
-    		parkingSpaces.add(fetchParkingTable(i + 1));
-    		attachButtonListener(parkingButtons.get(i), parkingSpaces.get(i));
+    	images.addAll(Arrays.asList(image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12));
+    	try(Connection conn = DBConnection.getConnection()){
+    		for(int i = 0; i < parkingButtons.size(); i++) {
+        		parkingSpaces.add(fetchParkingTable(i + 1, conn));
+        		attachButtonListener(parkingButtons.get(i), parkingSpaces.get(i), images.get(i));
+        	}
+    	} catch(SQLException e) {
+    		System.out.println("DB Error: " + e.getMessage());
     	}
+
     }
 
 	/**
@@ -88,23 +100,28 @@ public class FXMLController implements Initializable {
 	 * @param spot - A JavaFX button that will be attached to a ParkingSpot object
 	 * @param parkingSpace - The object that stores specific data on a particular parking space button
 	 */
-	private void attachButtonListener(Button spot, ParkingSpot parkingSpace) {
+	private void attachButtonListener(Button spot, ParkingSpot parkingSpace, ImageView image) {
 		spot.setUserData(parkingSpace); //bind button and ParkingSpot
+		spot.setGraphic(image); //bind button and image
 		parkingSpace.takenProperty().addListener(new ChangeListener<Boolean>(){
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if(newValue) {
 					spot.setStyle("-fx-background-color: #8B0000");
+					image.setImage(carImage);
 				} else {
 					spot.setStyle("-fx-background-color: #8B0000");
+					image.setImage(null);
 				}
 			}
 		});
 		
 		if(parkingSpace.isTaken()) {
 			spot.setStyle("-fx-background-color: #8B0000"); //set to dark red
+			image.setImage(carImage);
 		} else {
 			spot.setStyle("-fx-background-color: #2C4C3B"); //set to dark green
+			image.setImage(null);
 		}
 	} 
 	
@@ -115,12 +132,11 @@ public class FXMLController implements Initializable {
 	 * so that it doesn't have to be called several times for multiple objects
 	 */
 	private void updateParkingTable() {
-		String url = "jdbc:sqlite:C:/Users/dange/git/GUI/src/main/resources/parkingDB.sqlite";
-		String sql = "INSERT INTO ParkingSpots (spotID, type, value, isTaken) VALUES (?, ?, ?, ?) ON CONFLICT(spotID) DO UPDATE SET isTaken=excluded.isTaken;";
-		try(Connection conn = DriverManager.getConnection(url);
+		String sql = "INSERT INTO ParkingSpots (spotID, type, value, isTaken) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE isTaken=VALUES(isTaken);";
+		try(Connection conn = DBConnection.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql)){
 			
-			conn.setAutoCommit(true);
+			conn.setAutoCommit(false);
 			for(ParkingSpot el : parkingSpaces) {
 				statement.setInt(1, el.getParkingID());
 				statement.setString(2, el.getType().name());
@@ -130,6 +146,7 @@ public class FXMLController implements Initializable {
 				
 			}
 			statement.executeBatch();
+			conn.commit();
 		} catch(SQLException e) {
 			System.out.println("DB Error: " + e.getMessage());
 		}
@@ -141,12 +158,9 @@ public class FXMLController implements Initializable {
 	 * @param id - The unique key to find the specific ParkingSpot object in DB
 	 * @return A new ParkingSpot object populated with it's same data from the DB
 	 */
-	private ParkingSpot fetchParkingTable(int id) {
-		String url = "jdbc:sqlite:C:/Users/dange/git/GUI/src/main/resources/parkingDB.sqlite";
+	private ParkingSpot fetchParkingTable(int id, Connection conn) {
 		String sql = "SELECT * FROM ParkingSpots WHERE spotID = ?;";
-		try(Connection conn = DriverManager.getConnection(url);
-			PreparedStatement statement = conn.prepareStatement(sql)){
-			
+		try(PreparedStatement statement = conn.prepareStatement(sql)){
 			statement.setInt(1, id);
 			try(ResultSet results = statement.executeQuery()){
 				if(results.next()) {
