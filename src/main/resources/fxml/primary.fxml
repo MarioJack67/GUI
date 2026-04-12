@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TitledPane alignment="CENTER" text="Choose a Parking Space!" textAlignment="CENTER" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.FXMLController">
+<TitledPane alignment="CENTER" animated="false" collapsible="false" text="Choose a Parking Space!" textAlignment="CENTER" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.FXMLController">
    <content>
       <HBox prefHeight="423.0" prefWidth="716.0" spacing="50.0">
          <children>
