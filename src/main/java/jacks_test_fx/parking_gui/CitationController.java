@@ -5,10 +5,21 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 
 public class CitationController{
 
+	//IDK Maybe do something w/ this
+//	private ParkingCitation currentCitation;
+	
+	@FXML
+    private ComboBox<String> carComboBox;
+	public void initialize() {
+		//Get DB cars change dtype to Car rather than String
+		carComboBox.getItems().addAll("Apple", "Banana", "Cherry");
+	}
+	
     @FXML
     private TextArea citationNotes;
 
