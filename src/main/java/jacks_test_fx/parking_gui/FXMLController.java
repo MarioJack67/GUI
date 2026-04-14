@@ -36,6 +36,7 @@ import javafx.stage.Window;
  * @author Jack B
  */
 public class FXMLController implements Initializable {
+	public static String databaseURL = "srv526.hstgr.io";
 	
 	//Buttons and lists from the GUI itself
 	@FXML private Button spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12;
