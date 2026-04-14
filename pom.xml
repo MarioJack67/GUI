@@ -12,19 +12,19 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>jacks_test_fx.parking_gui.MainApp</mainClass>
-        <javafx.version>25.0.2</javafx.version>
+        <javafx.version>21.0.10</javafx.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>25.0.2</version>
+            <version>21.0.10</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>25.0.2</version>
+            <version>21.0.10</version>
         </dependency>
         <dependency>
     		<groupId>org.xerial</groupId>

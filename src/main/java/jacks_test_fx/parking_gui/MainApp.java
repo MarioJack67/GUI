@@ -17,7 +17,7 @@ public class MainApp extends Application {
         stage=s;
         stage.setMinWidth(650);
         stage.setMinHeight(500);
-        setRoot("citation","Parking Lot Managment System");
+        setRoot("registration","Parking Lot Managment System");
     }
 
     static void setRoot(String fxml) throws IOException {
