@@ -116,7 +116,7 @@ public class User {
 	//= CONSTRUCTERS
 	//==================================
 
-	public User(int userID, String address, String fname, String lname, String phoneNum, int accessLevel) {
+	public User(int userID, String fname, String lname, String address, String phoneNum, int accessLevel) {
 		this.userID = userID;
 		this.address = address;
 		this.fname = fname;

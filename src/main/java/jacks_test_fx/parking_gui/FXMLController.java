@@ -45,6 +45,8 @@ public class FXMLController implements Initializable {
 	List<ParkingSpot> parkingSpaces = new ArrayList<>();
 	List<ImageView> images = new ArrayList<>();
 	Image carImage = new Image(getClass().getResourceAsStream("/car.png"));
+	Stage stage;
+	User currentUser;
 	
     @FXML
     private void openRegistration(ActionEvent event) throws IOException {
@@ -70,7 +72,7 @@ public class FXMLController implements Initializable {
             //As a small tests, fetches and prints car model from the registration screen
             String enteredModel = rControl.getModel();
             System.out.println(enteredModel);
-            updateParkingTable();
+            updateParkingTable(currentSpace.getParkingID());
     	} 
     }
     
@@ -126,26 +128,26 @@ public class FXMLController implements Initializable {
 		}
 	} 
 	
-	@FXML
 	/**
 	 * This functions specifically updates the ParkingSpots table in the DB when called
 	 * It updates all values in the table for a single record and updates an entire batch
 	 * so that it doesn't have to be called several times for multiple objects
 	 */
-	private void updateParkingTable() {
-		String sql = "INSERT INTO ParkingSpots (spotID, type, value, isTaken) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE isTaken=VALUES(isTaken);";
+	private void updateParkingTable(int id) {
+		String sql = "INSERT INTO ParkingSpots (spotID, type, value, isTaken, userID) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE isTaken=VALUES(isTaken), userID=VALUES(userID);";
 		try(Connection conn = DBConnection.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql)){
 			
 			conn.setAutoCommit(false);
-			for(ParkingSpot el : parkingSpaces) {
-				statement.setInt(1, el.getParkingID());
-				statement.setString(2, el.getType().name());
-				statement.setString(3, el.getValue().name());
-				statement.setBoolean(4, el.isTaken());
-				statement.addBatch();
+			ParkingSpot chosenSpace = parkingSpaces.get(id - 1);
+			
+			statement.setInt(1, chosenSpace.getParkingID());
+			statement.setString(2, chosenSpace.getType().name());
+			statement.setString(3, chosenSpace.getValue().name());
+			statement.setBoolean(4, chosenSpace.isTaken());
+			statement.setInt(5, currentUser.getUserID());
+			statement.addBatch();
 				
-			}
 			statement.executeBatch();
 			conn.commit();
 		} catch(SQLException e) {
@@ -172,5 +174,17 @@ public class FXMLController implements Initializable {
 			System.out.println("DB Error: " + e.getMessage());
 		}
 		return null;
+	}
+	
+	/**
+	 * Used to provide a closing method once this window has completed its role
+	 * @param stage
+	 */
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+	
+	public void setUser(User user) {
+		currentUser = user;
 	}
 }

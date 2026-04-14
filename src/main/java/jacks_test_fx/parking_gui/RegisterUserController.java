@@ -54,13 +54,14 @@ public class RegisterUserController implements Initializable {
 		if(metRequirements()) {
 			//Insert the User into SQL Statement
 			String sql = "INSERT INTO Users (firstName, LastName, address, phoneNumber) VALUES (?, ?, ?, ?);";
-			try(Connection conn = DriverManager.getConnection(FXMLController.databaseURL); //Establish connection to Database
+			try(Connection conn = DBConnection.getConnection(); //Establish connection to Database
 					PreparedStatement statement = conn.prepareStatement(sql)){
 
 				//Prepare SQL Statement
 				conn.setAutoCommit(true);
 				statement.setString(1, fNameTxtFld.getText());
 				statement.setString(2, lNameTxtFld.getText());
+				statement.setString(3, addressTxtFld.getText());
 				statement.setString(4, phoneNumTxtFld.getText());
 				statement.addBatch();
 

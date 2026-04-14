@@ -54,11 +54,11 @@ public class LogInWindowController implements Initializable {
 	 */
 	private void getUserFromDatabase() {
 		if(metRequirements()) {
-			//Insert the User into SQL Statement
+			//Select the User into SQL Statement
 			String sql = "SELECT * FROM Users WHERE firstName = ? AND lastName = ? AND phoneNumber = ?";
-			try(Connection conn = DriverManager.getConnection(FXMLController.databaseURL); //Establish connection to Database
+			try(Connection conn = DBConnection.getConnection(); //Establish connection to Database
 					
-					PreparedStatement statement = conn.prepareStatement(sql)){
+					PreparedStatement statement = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)){
 
 				//Prepare SQL Statement
 				conn.setAutoCommit(true);
@@ -68,7 +68,10 @@ public class LogInWindowController implements Initializable {
 
 
 				ResultSet returnedUser =statement.executeQuery();
-				if(!returnedUser.next()) {showFailDialog("No associated User found");}
+				if(!returnedUser.next()) {
+					showFailDialog("No associated User found");
+				}
+				returnedUser.beforeFirst();
 				setLoggedUser(returnedUser);
 
 			} catch(SQLException e) {
@@ -78,6 +81,48 @@ public class LogInWindowController implements Initializable {
 		else {showFailDialog("Please enter in data");}
 
 	}
+	
+	@FXML
+	private void openUserRegistration(ActionEvent event) throws IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registerUserWindow.fxml"));
+        Parent parent = loader.load();
+        RegisterUserController userControl = loader.getController();
+        
+        Stage stage = new Stage();
+        stage.setTitle("Register your User");
+        stage.setScene(new Scene(parent));
+        stage.initModality(Modality.WINDOW_MODAL);
+        userControl.setStage(stage);
+        
+        Window owner = ((Button) event.getSource()).getScene().getWindow();
+        stage.initOwner(owner);
+        stage.showAndWait();
+	}
+	
+	@FXML
+	private void logIn(ActionEvent event) throws IOException{
+		getUserFromDatabase();
+		User account = getLoggedUser();
+		if(account != null) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary.fxml"));
+			Parent parent = loader.load();
+			FXMLController primaryControl = loader.getController();
+			primaryControl.setUser(account);
+			
+			Stage stage = new Stage();
+			stage.setTitle("Parking Map");
+			stage.setScene(new Scene(parent));
+			stage.initModality(Modality.WINDOW_MODAL);
+			primaryControl.setStage(stage);
+			
+			Window owner = ((Button) event.getSource()).getScene().getWindow();
+			stage.initOwner(owner);
+			stage.showAndWait();
+		} else {
+			showFailDialog("No acccount found. Please check your credentials");
+		}
+	}
+	
 	/**
 	 * Given a row from the Users table this method assigns the data to the loggedUser field.
 	 * @param returnedUser
@@ -177,28 +222,5 @@ public class LogInWindowController implements Initializable {
 	public User getLoggedUser() {
 		return loggedUser;
 	}
-	/*
-	////////////////////
-	///Register User///
-	//////////////////
-    @FXML
-    private void openUserRegistration(ActionEvent event) throws IOException {
-    		//Load registration GUI and its associated controller
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registerUserWindow.fxml"));
-            Parent parent = loader.load();
-            RegisterUserController rControl = loader.getController();
-            
-            Stage stage = new Stage();
-            stage.setTitle("Register your information");
-            stage.setScene(new Scene(parent));
-            stage.initModality(Modality.WINDOW_MODAL);
-            rControl.setStage(stage);
-            
-            Window owner = ((Button) event.getSource()).getScene().getWindow();
-            stage.initOwner(owner);
-            stage.showAndWait();
-    	
-    }*/
-	
 	
 }
