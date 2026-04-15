@@ -15,9 +15,9 @@ public class MainApp extends Application {
     @Override
     public void start(@SuppressWarnings("exports") Stage s) throws IOException {
         stage=s;
-        stage.setMinWidth(650);
-        stage.setMinHeight(500);
-        setRoot("citation","Parking Lot Managment System");
+//        stage.setMinWidth(650);
+//        stage.setMinHeight(500);
+        setRoot("logInWindow","Parking Lot Managment System");
     }
 
     static void setRoot(String fxml) throws IOException {
