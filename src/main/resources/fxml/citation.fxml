@@ -11,23 +11,23 @@
 
 <AnchorPane maxHeight="1000.0" maxWidth="1000.0" minHeight="400.0" minWidth="500.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.CitationController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="182.0" layoutY="29.0" prefHeight="18.0" prefWidth="233.0" text="Add a Car for Citation" textAlignment="CENTER" AnchorPane.leftAnchor="182.0" AnchorPane.rightAnchor="182.0" AnchorPane.topAnchor="30.0" />
-      <Label alignment="CENTER" layoutX="256.0" layoutY="147.0" text="Citation Notes" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="147.0" />
-      <TextArea fx:id="citationNotes" layoutX="164.0" layoutY="165.0" prefHeight="180.0" prefWidth="272.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="164.0" AnchorPane.topAnchor="165.0" />
-      <VBox alignment="CENTER" layoutX="220.0" layoutY="327.0" prefHeight="46.0" prefWidth="160.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="220.0">
-         <children>
-            <Button fx:id="submitTicketButton" alignment="CENTER" mnemonicParsing="false" onAction="#submitNewTicket" prefHeight="36.0" prefWidth="116.0" text="Submit Ticket" />
-         </children>
-      </VBox>
+      <Label alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="182.0" layoutY="29.0" prefHeight="18.0" prefWidth="233.0" text="Add a Car for Citation" textAlignment="CENTER" AnchorPane.leftAnchor="182.0" AnchorPane.rightAnchor="182.0" AnchorPane.topAnchor="30.0" />
       <HBox alignment="CENTER" layoutX="176.0" layoutY="60.0" prefHeight="53.0" prefWidth="248.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="60.0">
          <children>
             <ComboBox fx:id="carComboBox" prefHeight="27.0" prefWidth="203.0" promptText="Select an existing car..." />
-            <Button fx:id="newCarButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#addNewCar" prefHeight="25.0" prefWidth="25.0" text="+">
+            <Button fx:id="newCarButton" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#addNewCar" prefHeight="25.0" prefWidth="25.0" text="+">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>
             </Button>
          </children>
       </HBox>
+      <Label alignment="CENTER" focusTraversable="false" layoutX="256.0" layoutY="147.0" text="Citation Notes" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="147.0" />
+      <TextArea fx:id="citationNotes" layoutX="164.0" layoutY="165.0" prefHeight="180.0" prefWidth="272.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="164.0" AnchorPane.topAnchor="165.0" />
+      <VBox alignment="CENTER" layoutX="220.0" layoutY="327.0" prefHeight="46.0" prefWidth="160.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="220.0">
+         <children>
+            <Button fx:id="submitTicketButton" alignment="CENTER" mnemonicParsing="false" onAction="#submitNewTicket" prefHeight="36.0" prefWidth="116.0" text="Submit Ticket" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

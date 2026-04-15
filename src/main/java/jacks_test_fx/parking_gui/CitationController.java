@@ -33,7 +33,7 @@ public class CitationController{
     void addNewCar(ActionEvent event) {
     	System.out.println("New Car Button Pressed!");
     	try {
-			MainApp.setRoot("registration","Parking Lot Managment System");
+			MainApp.setRoot("adminCarRegistration","Parking Lot Managment System");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
