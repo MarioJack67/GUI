@@ -61,7 +61,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" GridPane.rowIndex="2">
                <children>
-                  <Label alignment="CENTER" text="Plate" textAlignment="CENTER">
+                  <Label alignment="CENTER" text="Plate:" textAlignment="CENTER">
                      <font>
                         <Font name="Bodoni MT" size="22.0" />
                      </font>
