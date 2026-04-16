@@ -11,7 +11,7 @@ public class ParkingSpot {
 	private int parkingID;
 	private final BooleanProperty spotTaken = new SimpleBooleanProperty(false);
 	@SuppressWarnings("unused")
-	private User user;
+	private int userID;
 	
 	/**
 	 * @param type
@@ -20,11 +20,11 @@ public class ParkingSpot {
 	 * @param spotTaken
 	 * @param user
 	 */
-	public ParkingSpot(ParkingType type, ParkingValues value, int parkingID, User user) {
+	public ParkingSpot(ParkingType type, ParkingValues value, int parkingID, int userID) {
 		this.type = type;
 		this.value = value;
 		this.parkingID = parkingID;
-		this.user = user;
+		this.userID = userID;
 	}
 	
 	/**
@@ -33,12 +33,13 @@ public class ParkingSpot {
 	 * @param value - Premium, Standard, Cheap
 	 * @param spotTaken - is there currently a car in the spot?
 	 */
-	public ParkingSpot(int parkingID, ParkingType type, ParkingValues value, boolean taken)
+	public ParkingSpot(int parkingID, ParkingType type, ParkingValues value, boolean taken, int userID)
 	{
 		this.parkingID = parkingID;
 		this.type = type;
 		this.value = value;
 		this.spotTaken.set(taken);
+		this.userID = userID;
 	}
 
 	/**
@@ -85,8 +86,12 @@ public class ParkingSpot {
 	/**
 	 * @param user the user to set
 	 */
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+
+	public int getUserID() {
+		return userID;
 	}
 	
 }
