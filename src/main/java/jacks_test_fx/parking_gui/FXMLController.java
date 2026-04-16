@@ -55,13 +55,15 @@ public class FXMLController implements Initializable {
     	ParkingSpot currentSpace = (ParkingSpot) currentSpot.getUserData();
     	if(!currentSpace.isTaken()) {
     		//Load registration GUI and its associated controller
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/carSelection.fxml"));
             Parent parent = loader.load();
-            CarRegistrationController rControl = loader.getController();
-            rControl.readParkingSpot(currentSpace); //pass ParkingSpot object to rControl
+            CarSelectionController sControl = loader.getController();
+            sControl.readParkingSpot(currentSpace); //pass ParkingSpot object to sControl
+            sControl.readUser(currentUser);
+            sControl.setSelection();
             
             Stage stage = new Stage();
-            stage.setTitle("Register your Car");
+            stage.setTitle("Select your Car");
             stage.setScene(new Scene(parent));
             stage.initModality(Modality.WINDOW_MODAL);
             
@@ -70,8 +72,6 @@ public class FXMLController implements Initializable {
             stage.showAndWait();
             
             //As a small tests, fetches and prints car model from the registration screen
-            String enteredModel = rControl.getModel();
-            System.out.println(enteredModel);
             updateParkingTable(currentSpace.getParkingID());
     	} 
     }
@@ -152,8 +152,7 @@ public class FXMLController implements Initializable {
 			conn.commit();
 		} catch(SQLException e) {
 			System.out.println("DB Error: " + e.getMessage());
-		}
-		
+		}	
 	}
 	
 	/**

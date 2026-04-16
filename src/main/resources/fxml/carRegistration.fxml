@@ -69,7 +69,7 @@
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="make1" prefHeight="10.0" prefWidth="250.0" promptText="Plate Number...">
+                  <TextField fx:id="plate" prefHeight="10.0" prefWidth="250.0" promptText="Plate Number...">
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
