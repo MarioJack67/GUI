@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minWidth="100.0" prefHeight="475.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.RegistrationController">
+<AnchorPane minWidth="100.0" prefHeight="475.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.CarRegistrationController">
    <children>
       <GridPane alignment="CENTER" layoutX="222.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="444.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="71.0">
         <columnConstraints>
