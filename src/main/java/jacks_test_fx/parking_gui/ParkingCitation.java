@@ -63,12 +63,12 @@ public class ParkingCitation {
 	 * Gets the payment deadline for the citation.
 	 * @return a LocalDate value representing when the citation must be payed by.
 	 */
-	public LocalDate getpaymentDeadline() { return paymentDeadline; }
+	public LocalDate getPaymentDeadline() { return paymentDeadline; }
 	/**
 	 * Gets the car being cited in the citation.
 	 * @return a Car object representing the car in the wrong.
 	 */
-	public Car getcarCited() { return carCited; }
+	public Car getCarCited() { return carCited; }
 	/**
 	 * Gets the owner of the car being cited.
 	 * @return a User object representing the person being cited.

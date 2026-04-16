@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class RegistrationController implements Initializable {
+public class CarRegistrationController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

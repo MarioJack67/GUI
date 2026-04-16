@@ -57,7 +57,7 @@ public class FXMLController implements Initializable {
     		//Load registration GUI and its associated controller
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
             Parent parent = loader.load();
-            RegistrationController rControl = loader.getController();
+            CarRegistrationController rControl = loader.getController();
             rControl.readParkingSpot(currentSpace); //pass ParkingSpot object to rControl
             
             Stage stage = new Stage();
