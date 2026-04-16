@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<TitledPane alignment="CENTER" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="602.0" text="User Info" textAlignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="jacks_test_fx.parking_gui.UserInfoController">
+<TitledPane alignment="CENTER" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="602.0" text="User Info" textAlignment="CENTER" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.UserInfoController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
@@ -27,12 +27,12 @@
                 <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TableView fx:id="carTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <columns>
-                      <TableColumn prefWidth="119.5" text="Make" />
-                        <TableColumn prefWidth="61.0" text="Year" />
-                      <TableColumn prefWidth="134.5" text="Model" />
-                        <TableColumn prefWidth="166.0" text="Plate #" />
+                      <TableColumn fx:id="makeCol" prefWidth="119.5" text="Make" />
+                        <TableColumn fx:id="yearCol" prefWidth="61.0" text="Year" />
+                      <TableColumn fx:id="modelCol" prefWidth="134.5" text="Model" />
+                        <TableColumn fx:id="plateCol" prefWidth="166.0" text="Plate #" />
                     </columns>
                   </TableView>
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Cite Unregistered Car" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />

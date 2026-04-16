@@ -76,6 +76,39 @@ public class FXMLController implements Initializable {
     	} 
     }
     
+    @FXML
+    private void openUserInfo(ActionEvent event) throws IOException {
+    	Button currentSpot = (Button) event.getSource(); //find button that was clicked
+    	//get ParkingSpot object attached to the clicked button
+    	ParkingSpot currentSpace = (ParkingSpot) currentSpot.getUserData();
+    	if(currentSpace.isTaken()) {
+    		//Load registration GUI and its associated controller
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userInfoWindow.fxml"));
+            Parent parent = loader.load();
+            UserInfoController userInfoController = loader.getController();
+            userInfoController.setupData(currentSpace.getUserID(), stage);
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.initModality(Modality.WINDOW_MODAL);
+            
+            Window owner = ((Button) event.getSource()).getScene().getWindow();
+            stage.initOwner(owner);
+            stage.showAndWait();
+    	} 
+    }
+    @FXML
+    private void useParkingSpace(ActionEvent event) throws IOException {
+    	switch (currentUser.getAccessLevel()){
+    	case 1:
+    		openUserInfo(event);
+    		break;
+    	default :
+    		openRegistration(event);
+    		
+    	}
+    }
+    
     @Override
     /**
      * Each time the GUI loads, this method will run, overrided from Initializable interface
@@ -166,7 +199,7 @@ public class FXMLController implements Initializable {
 			statement.setInt(1, id);
 			try(ResultSet results = statement.executeQuery()){
 				if(results.next()) {
-					return new ParkingSpot(results.getInt("spotID"), ParkingType.valueOf(results.getString("type").toUpperCase()), ParkingValues.valueOf(results.getString("value").toUpperCase()), results.getBoolean("isTaken"));
+					return new ParkingSpot(results.getInt("spotID"), ParkingType.valueOf(results.getString("type").toUpperCase()), ParkingValues.valueOf(results.getString("value").toUpperCase()), results.getBoolean("isTaken"),results.getInt("userID"));
 				}
 			}
 		} catch(SQLException e) {

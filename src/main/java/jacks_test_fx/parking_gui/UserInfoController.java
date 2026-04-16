@@ -9,12 +9,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class UserInfoController implements Initializable {
@@ -22,12 +25,16 @@ public class UserInfoController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.print("Init");
+		makeCol.setCellValueFactory(new PropertyValueFactory<>("make"));
+		yearCol.setCellValueFactory(new PropertyValueFactory<>("year"));
+		modelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
+		plateCol.setCellValueFactory(new PropertyValueFactory<>("plate"));
 	};
-	public void setupData(User user, Stage stage) {
+	public void setupData(int userID, Stage stage) {
 		setStage(stage);
-		setUser(user);
+		setUser(DBConnection.getUserFromDatabase(userID));
 		populateRegisteredCars(getRegisteredCars());
-		getUserFromDatabase();
+		populateUserInfo();
 	}
 	@FXML
 	private Label userIDOutputLbl;
@@ -41,6 +48,14 @@ public class UserInfoController implements Initializable {
 	private Label phoneNumberOutputLbl;
 	@FXML
 	private TableView<Car> carTableView;
+	@FXML 
+	private TableColumn<Car, String> makeCol;
+	@FXML 
+	private TableColumn<Car, String> yearCol;
+	@FXML 
+	private TableColumn<Car, String> modelCol;
+	@FXML 
+	private TableColumn<Car, String> plateCol;
 	
 	private Stage stage;
 	private User user;
@@ -51,6 +66,7 @@ public class UserInfoController implements Initializable {
 		}
 	}
 	
+	@FXML
 	/**
 	 * Creates a collection of Car objects that are registered to the current UserID
 	 * @return ArrayList of all Registered Cars for the current User
@@ -81,39 +97,18 @@ public class UserInfoController implements Initializable {
 		}
 		
 	}
-	/**
-	 * Taking data from the form this method checks for a user in the related database.
-	 * If a related User exists, it sets loggedUser to the related information.
-	 * @author Spencer J Peck
-	 */
-	private void getUserFromDatabase() {
-			//Select the User into SQL Statement
-			String sql = "SELECT * FROM Users WHERE userId = ?";
-			try(Connection conn = DBConnection.getConnection(); //Establish connection to Database
-					
-					PreparedStatement statement = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)){
-
-				//Prepare SQL Statement
-				conn.setAutoCommit(true);
-				statement.setInt(1, user.getUserID());
-
-
-				ResultSet returnedUser =statement.executeQuery();
-				if(returnedUser.next()) {
-					returnedUser.beforeFirst();//Ensure we start at first
-					while(returnedUser.next()) {
-						userIDOutputLbl.setText(returnedUser.getString("userID"));
-						firstNameOutputLbl.setText(returnedUser.getString("firstName"));
-						lastNameOutputLbl.setText(returnedUser.getString("lastName"));
-						addressOutputLbl.setText(returnedUser.getString("address"));
-						phoneNumberOutputLbl.setText(returnedUser.getString("phoneNumber"));
-					}
-				}
-
-			} catch(SQLException e) {
-				System.out.println("DB Error: " + e.getMessage());
-			}
-
+	private void populateUserInfo() {
+		try {
+			userIDOutputLbl.setText(user.getUserID()+ "");
+			firstNameOutputLbl.setText(user.getFname());
+			lastNameOutputLbl.setText(user.getLname());
+			addressOutputLbl.setText(user.getAddress());
+			phoneNumberOutputLbl.setText(user.getPhoneNum());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	/**
 	 * Used to provide a closing method once this window has completed its role
