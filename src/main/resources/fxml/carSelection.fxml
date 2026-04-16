@@ -10,12 +10,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import jacks_test_fx.parking_gui.Car?>
 
 <AnchorPane fx:id="registerButton" maxHeight="1000.0" maxWidth="1000.0" minHeight="400.0" minWidth="500.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.CarSelectionController">
    <children>
       <HBox alignment="CENTER" layoutX="176.0" layoutY="60.0" prefHeight="53.0" prefWidth="248.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="60.0">
          <children>
-            <ComboBox fx:id="carComboBox" prefHeight="27.0" prefWidth="203.0" promptText="Select an existing car..." />
+            <ComboBox fx:id="carComboBox" prefHeight="27.0" prefWidth="203.0" promptText="Select an existing car..." >
+    		</ComboBox>
             <Button fx:id="newCarButton" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#addNewCar" prefHeight="25.0" prefWidth="25.0" text="+">
                <HBox.margin>
                   <Insets left="5.0" />

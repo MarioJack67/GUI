@@ -22,13 +22,12 @@ public class Car {
 	 * @param year The year the car was made.
 	 * @param owner The registered owner of the car.
 	 */
-	public Car(String make, String model, String plate, String year, User owner){
-		make = this.make;
-		model = this.model;
-		plate = this.plate;
-		year = this.year;
-		owner = this.owner;
-		return;
+	public Car(String make, String model, String year, String plate, User owner){
+		this.make = make;
+		this.model = model;
+		this.year = year;
+		this.plate = plate;
+		this.owner = owner;
 	}
 
 	//Getters
@@ -72,4 +71,9 @@ public class Car {
 	 */
 	public void addCitation(ParkingCitation citation){ citations.add(citation); }
 	
+	@Override
+	public String toString() {
+		return this.make + " " + this.model + " [" + this.plate + "]";
+    }
 }
+
