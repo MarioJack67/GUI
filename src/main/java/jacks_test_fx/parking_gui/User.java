@@ -131,4 +131,8 @@ public class User {
 	//= METHODS
 	//==================================
 	
+	@Override
+	public String toString() {
+		return userID + " | " + fname + " " + lname;
+	}
 }

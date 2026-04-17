@@ -58,7 +58,7 @@ public class ParkingCitation {
 	 * Gets the date the citation was given.
 	 * @return a LocalDate value representing when the citation was given.
 	 */
-	public LocalDate getcitationDate() { return citationDate; }
+	public LocalDate getCitationDate() { return citationDate; }
 	/**
 	 * Gets the payment deadline for the citation.
 	 * @return a LocalDate value representing when the citation must be payed by.

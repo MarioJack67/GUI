@@ -4,9 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,10 +24,18 @@ import javafx.stage.Stage;
 public class AdminCarRegistrationController implements Initializable{
 
     @FXML
-    private ComboBox<String> userComboBox;
+    private ComboBox<User> userComboBox;
+    
+    @FXML
+    public void setSelection() {
+    	ObservableList<User> selections = FXCollections.observableArrayList(fetchUsers());
+    	userComboBox.setItems(selections);
+    }
+    
     public void initialize(URL location, ResourceBundle resources) {
 		//Get DB cars change dtype to User rather than String
-		userComboBox.getItems().addAll("Apple", "Banana", "Cherry");
+//		userComboBox.getItems().addAll("Apple", "Banana", "Cherry");
+    	setSelection();
 		
 		addTxtFldListener(model, modelWarn);
 		addTxtFldListener(make, makeWarn);
@@ -59,10 +71,6 @@ public class AdminCarRegistrationController implements Initializable{
 	private TextField model, make, year, plate;
 	@FXML
     private Label makeWarn, modelWarn, yearWarn, plateWarn, submitWarn;
-	
-	private User currentUser;
-	private ObservableList<Car> cars;
-
 
     @FXML
     void addNewUser(ActionEvent event) {
@@ -76,12 +84,19 @@ public class AdminCarRegistrationController implements Initializable{
 
     @FXML
     void retrieveInfo(ActionEvent event) {
+    	submitWarn.setText("");
     	if(validFields()) {
 			updateCarTable();
-			Car newCar = new Car(make.getText(), model.getText(), year.getText(), plate.getText(), currentUser);
-			cars.add(newCar);
-			Stage stage = (Stage) submit.getScene().getWindow();
-			stage.close();
+//			Car newCar = new Car(make.getText(), model.getText(), year.getText(), plate.getText(), userComboBox.getValue());
+//			cars.add(newCar);
+//			Stage stage = (Stage) submit.getScene().getWindow();
+//			stage.close();
+			try {
+				MainApp.switchRoot("citation");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
     }
     
@@ -126,15 +141,15 @@ public class AdminCarRegistrationController implements Initializable{
 	    });
 	}
 	
-	public void readUser(User user) {
-    	this.currentUser = user;
-    }
-	
-	public void readCars(ObservableList<Car> cars) {
-		this.cars = cars;
-	}
-	
 	private void updateCarTable(){
+		
+		User selectedUser = userComboBox.getValue();
+		
+		if (selectedUser == null) {
+	        submitWarn.setText("* Please select a user");
+	        return;
+	    }
+		
 		String sql = "INSERT INTO Cars (make, model, year, plate, userID) VALUES (?, ?, ?, ?, ?);";
 		try(Connection conn = DBConnection.getConnection();
 				PreparedStatement statement = conn.prepareStatement(sql)){
@@ -145,14 +160,40 @@ public class AdminCarRegistrationController implements Initializable{
 				statement.setString(2, model.getText());
 				statement.setString(3, year.getText());
 				statement.setString(4, plate.getText());
-				statement.setInt(5, currentUser.getUserID());
-				statement.addBatch();
-					
-				statement.executeBatch();
+				statement.setInt(5, selectedUser.getUserID());
+				statement.executeUpdate();
+				
 				conn.commit();
 			} catch(SQLException e) {
 				System.out.println("DB Error: " + e.getMessage());
 			}
 	}
+	
+	private List<User> fetchUsers() {
+    	List<User> usersList = new ArrayList<>();
+    	String sql = "SELECT userID, firstName, lastName, address, phoneNumber, accessLevel FROM Users";
+    	try(Connection conn = DBConnection.getConnection();
+    			PreparedStatement statement = conn.prepareStatement(sql)){	
+    			conn.setAutoCommit(true);
+    			
+    			ResultSet results = statement.executeQuery();
+    			while(results.next()) {
+
+    	            // User fields
+    	            int userID = results.getInt("userID");
+    	            String fname = results.getString("firstName");
+    	            String lname = results.getString("lastName");
+    	            String address = results.getString("address");
+    	            String phone = results.getString("phoneNumber");
+    	            int accessLevel = results.getInt("accessLevel");
+    	            
+    	            User user = new User(userID, fname, lname, address, phone, accessLevel);
+    				usersList.add(user);
+    			}
+    		} catch(SQLException e) {
+    			System.out.println("DB Error: " + e.getMessage());
+    		}
+    	return usersList;
+    }
 
 }
