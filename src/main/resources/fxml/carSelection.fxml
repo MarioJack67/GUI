@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import jacks_test_fx.parking_gui.Car?>
 
 <AnchorPane fx:id="registerButton" maxHeight="1000.0" maxWidth="1000.0" minHeight="400.0" minWidth="500.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.CarSelectionController">
    <children>
