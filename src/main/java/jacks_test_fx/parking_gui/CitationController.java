@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 public class CitationController implements Initializable {
@@ -47,6 +48,9 @@ public class CitationController implements Initializable {
 
     @FXML
     private Button submitTicketButton;
+    
+    @FXML
+    private Label submitWarn;
 
     @FXML
     void addNewCar(ActionEvent event) {
@@ -61,44 +65,80 @@ public class CitationController implements Initializable {
     
     @FXML
     void submitNewTicket(ActionEvent event) {
+    	submitWarn.setText("");
     	System.out.println("Submit Ticket Button Pressed!");
-//    	updateCitationTable();
+    	updateCitationTable();
     }
     
 private void updateCitationTable(){
 		
 		Car selectedCar = carComboBox.getValue();
-		ParkingCitation currentCitation = new ParkingCitation(selectedCar, citationNotes.getText());
 		
 		if (selectedCar == null) {
-			//TODO Add submitWarn Label
-//	        submitWarn.setText("* Please select a user");
+	        submitWarn.setText("* Car Field Required");
 	        return;
 	    }
 		
+		
+		ParkingCitation currentCitation = new ParkingCitation(selectedCar, citationNotes.getText());
+		
+		
+		
+		int selectedCarID = getCurrentCarID(selectedCar);
+		//Exits if can't find car ID to prevent DB issues
+		if(selectedCarID == -1) { return; }
+		
+		
+		//==========================================================================================================
+		
+		//update citation table in DB
 		String sql = "INSERT INTO Citations (fee, citationDate, paymentDate, citationNote, carID) VALUES (?, ?, ?, ?, ?);";
 		try(Connection conn = DBConnection.getConnection();
 				PreparedStatement statement = conn.prepareStatement(sql)){
-				
 				conn.setAutoCommit(false);
-				
-				
 				
 				statement.setDouble(1, currentCitation.getFeeAmount());
 				statement.setDate(2, Date.valueOf(currentCitation.getCitationDate()));
 				statement.setDate(3, Date.valueOf(currentCitation.getPaymentDeadline()));
 				statement.setString(4, currentCitation.getNotes());
-//				statement.setInt(5, getCurrentCarID());
-//				statement.executeUpdate();
+				statement.setInt(5, selectedCarID);
+				statement.executeUpdate();
 				
 				conn.commit();
+				try {
+					MainApp.switchRoot("primary");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} catch(SQLException e) {
 				System.out.println("DB Error: " + e.getMessage());
 			}
 	}
 
-	private int getCurrentCarID() {
-		//TODO
+	private int getCurrentCarID(Car selectedCar) {
+		//find carID from car table in DB
+		String sql = "SELECT carID FROM Cars WHERE make = ? AND model = ? AND year = ? AND plate = ?";
+		try(Connection conn = DBConnection.getConnection();
+				PreparedStatement statement = conn.prepareStatement(sql)){
+				conn.setAutoCommit(false);
+					
+				statement.setString(1, selectedCar.getMake());
+				statement.setString(2, selectedCar.getModel());
+				statement.setString(3, selectedCar.getYear());
+				statement.setString(4, selectedCar.getPlate());
+				ResultSet results = statement.executeQuery();
+				if(results.next()) {
+//					conn.commit();
+					return results.getInt("carID");
+				}
+				else {
+					System.out.println("Error, Car object not found in DB!");
+					return -1;
+				}			
+			} catch(SQLException e) {
+				System.out.println("DB Error: " + e.getMessage());
+			}
 		return -1;
 	}
 

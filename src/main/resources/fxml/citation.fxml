@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="1000.0" maxWidth="1000.0" minHeight="400.0" minWidth="500.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.CitationController">
    <children>
@@ -24,10 +25,15 @@
       </HBox>
       <Label alignment="CENTER" focusTraversable="false" layoutX="256.0" layoutY="147.0" text="Citation Notes" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="147.0" />
       <TextArea fx:id="citationNotes" layoutX="164.0" layoutY="165.0" prefHeight="180.0" prefWidth="272.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="164.0" AnchorPane.topAnchor="165.0" />
-      <VBox alignment="CENTER" layoutX="220.0" layoutY="327.0" prefHeight="46.0" prefWidth="160.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="220.0">
+      <VBox alignment="CENTER" layoutX="199.0" layoutY="325.0" prefHeight="46.0" prefWidth="203.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="198.0">
          <children>
-            <Button fx:id="submitTicketButton" alignment="CENTER" mnemonicParsing="false" onAction="#submitNewTicket" prefHeight="36.0" prefWidth="116.0" text="Submit Ticket" />
+            <Button fx:id="submitTicketButton" alignment="CENTER" mnemonicParsing="false" onAction="#submitNewTicket" prefHeight="35.0" prefWidth="120.0" text="Submit Ticket" />
          </children>
       </VBox>
+      <Label fx:id="submitWarn" alignment="CENTER" contentDisplay="CENTER" layoutY="113.0" prefHeight="20.0" prefWidth="161.0" textFill="#c10000" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="113.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
