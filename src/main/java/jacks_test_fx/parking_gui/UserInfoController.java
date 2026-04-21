@@ -73,37 +73,7 @@ public class UserInfoController implements Initializable {
 	@FXML
     void createNewCitation(ActionEvent event) throws IOException{
 		System.out.println("Create Citation Button Pressed!");
-		
-//		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/citation.fxml"));
-//        Parent parent = loader.load();
-//        CitationController userControl = loader.getController();
-//		Stage stage = new Stage();
-//        stage.setTitle("Citation");
-//        stage.setScene(new Scene(parent));
-//        stage.initModality(Modality.WINDOW_MODAL);
-//        userControl.setStage(stage);
-//        
-//        Window owner = ((Button) event.getSource()).getScene().getWindow();
-//        stage.initOwner(owner);
-//        stage.showAndWait();
-		
-		//BREAK
-		
-//		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/citation.fxml"));
-//		Parent root = loader.load();
-//
-//		// Get controller if needed
-//		CitationController controller = loader.getController();
-//
-//		// Get current stage (window)
-//		Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-//
-//		// Swap scene
-//		stage.setScene(new Scene(root));
-//
-//		// (Optional) pass stage to controller
-//		controller.setStage(stage);
-		SceneUtility.switchScene(event, "citation");
+		SceneUtility.switchScene(event, "citation", "Citation");
 		
     }
 	

@@ -54,24 +54,19 @@ public class CitationController implements Initializable {
     private Label submitWarn;
 
     @FXML
-    void addNewCar(ActionEvent event) {
+    void addNewCar(ActionEvent event) throws IOException {
     	System.out.println("New Car Button Pressed!");
-    	try {
-			MainApp.switchRoot("adminCarRegistration");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	SceneUtility.switchScene(event, "adminCarRegistration", "Register a Car");
     }
     
     @FXML
     void submitNewTicket(ActionEvent event) throws IOException{
     	submitWarn.setText("");
     	System.out.println("Submit Ticket Button Pressed!");
-    	updateCitationTable();
+    	updateCitationTable(event);
     }
     
-private void updateCitationTable() throws IOException{
+private void updateCitationTable(ActionEvent event) throws IOException{
 		
 		Car selectedCar = carComboBox.getValue();
 		
@@ -106,7 +101,10 @@ private void updateCitationTable() throws IOException{
 				statement.executeUpdate();
 				
 				conn.commit();
-				MainApp.switchRoot("primary");
+//				MainApp.switchRoot("primary"); //Depreciated
+//				SceneUtility.switchScene(event, "primary", "Parking Map");
+				Stage stage = (Stage) submitTicketButton.getScene().getWindow();
+				stage.close();
 			} catch(SQLException e) {
 				System.out.println("DB Error: " + e.getMessage());
 			}
