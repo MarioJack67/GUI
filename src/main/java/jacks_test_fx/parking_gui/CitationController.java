@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 public class CitationController implements Initializable {
 
@@ -64,13 +65,13 @@ public class CitationController implements Initializable {
     }
     
     @FXML
-    void submitNewTicket(ActionEvent event) {
+    void submitNewTicket(ActionEvent event) throws IOException{
     	submitWarn.setText("");
     	System.out.println("Submit Ticket Button Pressed!");
     	updateCitationTable();
     }
     
-private void updateCitationTable(){
+private void updateCitationTable() throws IOException{
 		
 		Car selectedCar = carComboBox.getValue();
 		
@@ -105,12 +106,7 @@ private void updateCitationTable(){
 				statement.executeUpdate();
 				
 				conn.commit();
-				try {
-					MainApp.switchRoot("primary");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				MainApp.switchRoot("primary");
 			} catch(SQLException e) {
 				System.out.println("DB Error: " + e.getMessage());
 			}
@@ -174,5 +170,20 @@ private void updateCitationTable(){
     		}
     	return carsList;
     }
+    
+    private Stage stage;
+	private User user;
+    
+    /**
+	 * Used to provide a closing method once this window has completed its role
+	 * @param stage
+	 */
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+	
+	public void setUser(User user) {
+		user = this.user;
+	}
 
 }
