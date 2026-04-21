@@ -1,5 +1,6 @@
 package jacks_test_fx.parking_gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -73,13 +74,14 @@ public class CarRegistrationController implements Initializable {
     private Label submitWarn;
 	
 	@FXML
-	private void retrieveInfo(ActionEvent event) {
+	private void retrieveInfo(ActionEvent event) throws IOException {
 		if(validFields()) {
 			updateCarTable();
-			Car newCar = new Car(make.getText(), model.getText(), year.getText(), plate.getText(), currentUser);
-			cars.add(newCar);
+			Car newCar = new Car(make.getText(), model.getText(), year.getText(), plate.getText(), Session.currentUser);
+			Session.cars.add(newCar);
 			Stage stage = (Stage) submit.getScene().getWindow();
-			stage.close();
+			SceneUtility.switchScene(event, "carSelection", "Select Your Car");
+//			stage.close();
 		}
 	}
 	
@@ -144,7 +146,7 @@ public class CarRegistrationController implements Initializable {
 				statement.setString(2, model.getText());
 				statement.setString(3, year.getText());
 				statement.setString(4, plate.getText());
-				statement.setInt(5, currentUser.getUserID());
+				statement.setInt(5, Session.currentUser.getUserID());
 				statement.addBatch();
 					
 				statement.executeBatch();

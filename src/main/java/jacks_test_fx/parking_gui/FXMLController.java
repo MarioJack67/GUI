@@ -54,22 +54,9 @@ public class FXMLController implements Initializable {
     	//get ParkingSpot object attached to the clicked button
     	ParkingSpot currentSpace = (ParkingSpot) currentSpot.getUserData();
     	if(!currentSpace.isTaken()) {
-    		//Load registration GUI and its associated controller
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/carSelection.fxml"));
-            Parent parent = loader.load();
-            CarSelectionController sControl = loader.getController();
-            sControl.readParkingSpot(currentSpace); //pass ParkingSpot object to sControl
-            sControl.readUser(currentUser);
-            sControl.setSelection();
-            
-            Stage stage = new Stage();
-            stage.setTitle("Select your Car");
-            stage.setScene(new Scene(parent));
-            stage.initModality(Modality.WINDOW_MODAL);
-            
-            Window owner = ((Button) event.getSource()).getScene().getWindow();
-            stage.initOwner(owner);
-            stage.showAndWait();
+            Session.parkingSpot = currentSpace;
+            System.out.println("Session.parkingSpot Updated: " + Session.parkingSpot);
+            SceneUtility.popoutScene(event, "carSelection", "Select Your Car");
             
             //As a small tests, fetches and prints car model from the registration screen
             updateParkingTable(currentSpace.getParkingID());
@@ -82,24 +69,12 @@ public class FXMLController implements Initializable {
     	//get ParkingSpot object attached to the clicked button
     	ParkingSpot currentSpace = (ParkingSpot) currentSpot.getUserData();
     	if(currentSpace.isTaken()) {
-    		//Load registration GUI and its associated controller
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userInfoWindow.fxml"));
-            Parent parent = loader.load();
-            UserInfoController userInfoController = loader.getController();
-            userInfoController.setupData(currentSpace.getUserID(), stage);
-            
-            Stage stage = new Stage();
-            stage.setScene(new Scene(parent));
-            stage.initModality(Modality.WINDOW_MODAL);
-            
-            Window owner = ((Button) event.getSource()).getScene().getWindow();
-            stage.initOwner(owner);
-            stage.showAndWait();
+    		SceneUtility.popoutScene(event, "userInfoWindow", "User Info");
     	} 
     }
     @FXML
     private void useParkingSpace(ActionEvent event) throws IOException {
-    	switch (currentUser.getAccessLevel()){
+    	switch (Session.currentUser.getAccessLevel()){
     	case 1:
     		openUserInfo(event);
     		break;
@@ -178,7 +153,7 @@ public class FXMLController implements Initializable {
 			statement.setString(2, chosenSpace.getType().name());
 			statement.setString(3, chosenSpace.getValue().name());
 			statement.setBoolean(4, chosenSpace.isTaken());
-			statement.setInt(5, currentUser.getUserID());
+			statement.setInt(5, Session.currentUser.getUserID());
 			statement.addBatch();
 				
 			statement.executeBatch();

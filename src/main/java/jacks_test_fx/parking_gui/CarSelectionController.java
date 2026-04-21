@@ -46,36 +46,27 @@ public class CarSelectionController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	
+//    	Session.parkingSpot = currentSpot;
+    	setSelection();
     }
     
     @FXML
     public void setSelection() {
-    	ObservableList<Car> selections = FXCollections.observableArrayList(fetchCars(currentUser.getUserID()));
+    	ObservableList<Car> selections = FXCollections.observableArrayList(fetchCars(Session.currentUser.getUserID()));
     	carComboBox.setItems(selections);
     }
 
     @FXML
     void addNewCar(ActionEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/carRegistration.fxml"));
-        Parent parent = loader.load();
-        CarRegistrationController rControl = loader.getController();
-        rControl.readUser(currentUser);
-        rControl.readCars(carComboBox.getItems());
-        
-        Stage stage = new Stage();
-        stage.setTitle("Register your Car");
-        stage.setScene(new Scene(parent));
-        stage.initModality(Modality.WINDOW_MODAL);
-        
-        Window owner = ((Button) event.getSource()).getScene().getWindow();
-        stage.initOwner(owner);
-        stage.showAndWait();
+    	System.out.println("Add Car Button Pressed!");
+    	Session.cars = carComboBox.getItems();
+    	SceneUtility.switchScene(event, "carRegistration", "Register Your Car");
     }
 
     @FXML
     void submitNewTicket(ActionEvent event) {
-    	currentSpot.setTaken(true);
+    	System.out.println("Session.parkingSpot = " + Session.parkingSpot);
+    	Session.parkingSpot.setTaken(true);
     	Stage stage = (Stage) submitTicketButton.getScene().getWindow();
 		stage.close();
     }
@@ -102,7 +93,7 @@ public class CarSelectionController implements Initializable {
     				String model = results.getString("model");
     				String year = results.getString("year");
     				String plate = results.getString("plate");
-    				Car currentCar = new Car(make, model, year, plate, currentUser);
+    				Car currentCar = new Car(make, model, year, plate, Session.currentUser);
     				userCars.add(currentCar);
     			}
     		} catch(SQLException e) {

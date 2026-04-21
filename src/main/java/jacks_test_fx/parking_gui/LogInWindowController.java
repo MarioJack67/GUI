@@ -84,19 +84,7 @@ public class LogInWindowController implements Initializable {
 	
 	@FXML
 	private void openUserRegistration(ActionEvent event) throws IOException{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registerUserWindow.fxml"));
-        Parent parent = loader.load();
-        RegisterUserController userControl = loader.getController();
-        
-        Stage stage = new Stage();
-        stage.setTitle("Register your User");
-        stage.setScene(new Scene(parent));
-        stage.initModality(Modality.WINDOW_MODAL);
-        userControl.setStage(stage);
-        
-        Window owner = ((Button) event.getSource()).getScene().getWindow();
-        stage.initOwner(owner);
-        stage.showAndWait();
+		SceneUtility.switchScene(event, "registerUserWindow", "Register Your User");
 	}
 	
 	@FXML
@@ -104,20 +92,8 @@ public class LogInWindowController implements Initializable {
 		getUserFromDatabase();
 		User account = getLoggedUser();
 		if(account != null) {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/primary.fxml"));
-			Parent parent = loader.load();
-			FXMLController primaryControl = loader.getController();
-			primaryControl.setUser(account);
-			
-			Stage stage = new Stage();
-			stage.setTitle("Parking Map");
-			stage.setScene(new Scene(parent));
-			stage.initModality(Modality.WINDOW_MODAL);
-			primaryControl.setStage(stage);
-			
-			Window owner = ((Button) event.getSource()).getScene().getWindow();
-			stage.initOwner(owner);
-			stage.showAndWait();
+			Session.currentUser = account;
+			SceneUtility.switchScene(event, "primary", "Parking Map"); //, (FXMLController c) -> { c.setUser(account); }
 		} else {
 			showFailDialog("No acccount found. Please check your credentials");
 		}
