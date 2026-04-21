@@ -69,6 +69,9 @@ public class FXMLController implements Initializable {
     	//get ParkingSpot object attached to the clicked button
     	ParkingSpot currentSpace = (ParkingSpot) currentSpot.getUserData();
     	if(currentSpace.isTaken()) {
+    		//update user space info
+    		Session.viewedUser =  DBConnection.getUserFromDatabase(currentSpace.getUserID()); //currentSpace.getUserID();
+    		System.out.println("Current Space User Updated: " + Session.viewedUser);
     		SceneUtility.popoutScene(event, "userInfoWindow", "User Info");
     	} 
     }

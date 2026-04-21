@@ -37,6 +37,8 @@ public class UserInfoController implements Initializable {
 		yearCol.setCellValueFactory(new PropertyValueFactory<>("year"));
 		modelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
 		plateCol.setCellValueFactory(new PropertyValueFactory<>("plate"));
+		populateUserInfo();
+		populateRegisteredCars(getRegisteredCars());
 	};
 	public void setupData(int userID, Stage stage) {
 		setStage(stage);
@@ -95,7 +97,7 @@ public class UserInfoController implements Initializable {
 
 			//Prepare SQL Statement
 			conn.setAutoCommit(true);
-			statement.setInt(1, user.getUserID());
+			statement.setInt(1, Session.viewedUser.getUserID());
 
 			//Get results of sql statement
 			ResultSet sqlRows = statement.executeQuery();
@@ -116,11 +118,11 @@ public class UserInfoController implements Initializable {
 	}
 	private void populateUserInfo() {
 		try {
-			userIDOutputLbl.setText(user.getUserID()+ "");
-			firstNameOutputLbl.setText(user.getFname());
-			lastNameOutputLbl.setText(user.getLname());
-			addressOutputLbl.setText(user.getAddress());
-			phoneNumberOutputLbl.setText(user.getPhoneNum());
+			userIDOutputLbl.setText(Session.viewedUser.getUserID()+ "");
+			firstNameOutputLbl.setText(Session.viewedUser.getFname());
+			lastNameOutputLbl.setText(Session.viewedUser.getLname());
+			addressOutputLbl.setText(Session.viewedUser.getAddress());
+			phoneNumberOutputLbl.setText(Session.viewedUser.getPhoneNum());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
