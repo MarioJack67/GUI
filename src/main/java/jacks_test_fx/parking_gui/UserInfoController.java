@@ -116,11 +116,11 @@ public class UserInfoController implements Initializable {
 	}
 	private void populateUserInfo() {
 		try {
-			userIDOutputLbl.setText(user.getUserID()+ "");
-			firstNameOutputLbl.setText(user.getFname());
-			lastNameOutputLbl.setText(user.getLname());
-			addressOutputLbl.setText(user.getAddress());
-			phoneNumberOutputLbl.setText(user.getPhoneNum());
+			userIDOutputLbl.setText(Session.currentUser.getUserID()+ "");
+			firstNameOutputLbl.setText(Session.currentUser.getFname());
+			lastNameOutputLbl.setText(Session.currentUser.getLname());
+			addressOutputLbl.setText(Session.currentUser.getAddress());
+			phoneNumberOutputLbl.setText(Session.currentUser.getPhoneNum());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
