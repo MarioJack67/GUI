@@ -39,8 +39,8 @@ public class FXMLController implements Initializable {
 	public static String databaseURL = "srv526.hstgr.io";
 	
 	//Buttons and lists from the GUI itself
-	@FXML private Button spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12;
-	@FXML private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12;
+	@FXML private Button spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12, spot13, spot14, spot15, spot16, spot17, spot18, spot19, spot20, spot21, spot22, spot23, spot24;
+	@FXML private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18, image19, image20, image21, image22, image23, image24;
 	List<Button> parkingButtons = new ArrayList<>();
 	List<ParkingSpot> parkingSpaces = new ArrayList<>();
 	List<ImageView> images = new ArrayList<>();
@@ -118,8 +118,8 @@ public class FXMLController implements Initializable {
      * @param rb - Any resource bundles that need to be included.
      */
     public void initialize(URL url, ResourceBundle rb) {
-    	parkingButtons.addAll(Arrays.asList(spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12));
-    	images.addAll(Arrays.asList(image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12));
+    	parkingButtons.addAll(Arrays.asList(spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12, spot13, spot14, spot15, spot16, spot17, spot18, spot19, spot20, spot21, spot22, spot23, spot24));
+    	images.addAll(Arrays.asList(image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18, image19, image20, image21, image22, image23, image24));
     	try(Connection conn = DBConnection.getConnection()){
     		for(int i = 0; i < parkingButtons.size(); i++) {
         		parkingSpaces.add(fetchParkingTable(i + 1, conn));
