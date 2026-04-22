@@ -1,6 +1,5 @@
 package jacks_test_fx.parking_gui;
 
-
 import java.io.IOException;
 
 import java.net.URL;
@@ -21,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -49,62 +49,108 @@ public class FXMLController implements Initializable {
 	User currentUser;
 	
     @FXML
-    private void openRegistration(ActionEvent event) throws IOException {
+    private void userUseParkingSpace(ActionEvent event) throws IOException {
     	Button currentSpot = (Button) event.getSource(); //find button that was clicked
     	//get ParkingSpot object attached to the clicked button
     	ParkingSpot currentSpace = (ParkingSpot) currentSpot.getUserData();
     	if(!currentSpace.isTaken()) {
-    		//Load registration GUI and its associated controller
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/carSelection.fxml"));
-            Parent parent = loader.load();
-            CarSelectionController sControl = loader.getController();
-            sControl.readParkingSpot(currentSpace); //pass ParkingSpot object to sControl
-            sControl.readUser(currentUser);
-            sControl.setSelection();
-            
-            Stage stage = new Stage();
-            stage.setTitle("Select your Car");
-            stage.setScene(new Scene(parent));
-            stage.initModality(Modality.WINDOW_MODAL);
-            
-            Window owner = ((Button) event.getSource()).getScene().getWindow();
-            stage.initOwner(owner);
-            stage.showAndWait();
-            
-            //As a small tests, fetches and prints car model from the registration screen
-            updateParkingTable(currentSpace.getParkingID());
-    	} 
+    		openRegistration(event, currentSpace);
+    	}else {
+    		if(currentSpace.getUserID() == currentUser.getUserID()) {
+        		openCancelRegistration(event, currentSpace);    			
+    		}
+    	}
     }
+
+	private void openRegistration(ActionEvent event, ParkingSpot currentSpace) throws IOException {
+		//Load registration GUI and its associated controller
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/carSelection.fxml"));
+		Parent parent = loader.load();
+		CarSelectionController sControl = loader.getController();
+		sControl.readParkingSpot(currentSpace); //pass ParkingSpot object to sControl
+		sControl.readUser(currentUser);
+		sControl.setSelection();
+		
+		Stage stage = new Stage();
+		stage.setTitle("Select your Car");
+		stage.setScene(new Scene(parent));
+		stage.initModality(Modality.WINDOW_MODAL);
+		
+		Window owner = ((Button) event.getSource()).getScene().getWindow();
+		stage.initOwner(owner);
+		stage.showAndWait();
+		
+		//As a small tests, fetches and prints car model from the registration screen
+		updateParkingTable(currentSpace.getParkingID());
+	}
+	
+	private void openCancelRegistration(ActionEvent event, ParkingSpot currentSpace) throws IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/unregisterParkingSpot.fxml"));
+        Parent parent = loader.load();
+        CancelReservationController control = loader.getController();
+        
+        Stage stage = new Stage();
+        stage.setTitle("Cancel Your Reservation?");
+        stage.setScene(new Scene(parent));
+        stage.initModality(Modality.WINDOW_MODAL);
+        control.setStage(stage);
+        control.setCurrentSpot(currentSpace);
+        
+        Window owner = ((Button) event.getSource()).getScene().getWindow();
+        stage.initOwner(owner);
+        stage.showAndWait();
+
+		updateParkingTable(currentSpace.getParkingID());
+	}
     
     @FXML
-    private void openUserInfo(ActionEvent event) throws IOException {
+    private void adminUseParkingSpace(ActionEvent event) throws IOException {
     	Button currentSpot = (Button) event.getSource(); //find button that was clicked
     	//get ParkingSpot object attached to the clicked button
     	ParkingSpot currentSpace = (ParkingSpot) currentSpot.getUserData();
     	if(currentSpace.isTaken()) {
-    		//Load registration GUI and its associated controller
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userInfoWindow.fxml"));
-            Parent parent = loader.load();
-            UserInfoController userInfoController = loader.getController();
-            userInfoController.setupData(currentSpace.getUserID(), stage);
-            
-            Stage stage = new Stage();
-            stage.setScene(new Scene(parent));
-            stage.initModality(Modality.WINDOW_MODAL);
-            
-            Window owner = ((Button) event.getSource()).getScene().getWindow();
-            stage.initOwner(owner);
-            stage.showAndWait();
-    	} 
+    		showUserInfo(event, currentSpace);
+    	}else {
+    		showWarning("No Registered User Found for this location");
+    	}
     }
+    /**
+     * Creates a warning Dialog Box popup.
+     * Should be used to provide user feedback when an invalid action is taken.
+     * @param message to be displayed
+     */
+    private void showWarning(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
+	private void showUserInfo(ActionEvent event, ParkingSpot currentSpace) throws IOException {
+		//Load registration GUI and its associated controller
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userInfoWindow.fxml"));
+		Parent parent = loader.load();
+		UserInfoController userInfoController = loader.getController();
+		userInfoController.setupData(currentSpace.getUserID(), stage);
+		
+		Stage stage = new Stage();
+		stage.setScene(new Scene(parent));
+		stage.initModality(Modality.WINDOW_MODAL);
+		
+		Window owner = ((Button) event.getSource()).getScene().getWindow();
+		stage.initOwner(owner);
+		stage.showAndWait();
+	}
     @FXML
     private void useParkingSpace(ActionEvent event) throws IOException {
     	switch (currentUser.getAccessLevel()){
     	case 1:
-    		openUserInfo(event);
+    		adminUseParkingSpace(event);
     		break;
     	default :
-    		openRegistration(event);
+    		userUseParkingSpace(event);
     		
     	}
     }
@@ -183,6 +229,7 @@ public class FXMLController implements Initializable {
 				
 			statement.executeBatch();
 			conn.commit();
+			chosenSpace.setUserID(currentUser.getUserID());
 		} catch(SQLException e) {
 			System.out.println("DB Error: " + e.getMessage());
 		}	
