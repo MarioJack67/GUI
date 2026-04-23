@@ -62,9 +62,9 @@ public class FXMLController implements Initializable {
             //As a small tests, fetches and prints car model from the registration screen
             updateParkingTable(currentSpace.getParkingID());
     	}else {
-    		if(currentSpace.getUserID() == currentUser.getUserID()) {
+    		if(currentSpace.getUserID() == Session.currentUser.getUserID()) {
+                Session.parkingSpot = currentSpace;
                 SceneUtility.popoutScene(event, "unregisterParkingSpot", "Cancel Your Reservation?");
-        		openCancelRegistration(event, currentSpace);    			
     		}
     	}
 
@@ -76,7 +76,7 @@ public class FXMLController implements Initializable {
 		Parent parent = loader.load();
 		CarSelectionController sControl = loader.getController();
 		sControl.readParkingSpot(currentSpace); //pass ParkingSpot object to sControl
-		sControl.readUser(currentUser);
+		sControl.readUser(Session.currentUser);
 		sControl.setSelection();
 		
 		Stage stage = new Stage();
@@ -101,8 +101,6 @@ public class FXMLController implements Initializable {
         stage.setTitle("Cancel Your Reservation?");
         stage.setScene(new Scene(parent));
         stage.initModality(Modality.WINDOW_MODAL);
-        control.setStage(stage);
-        control.setCurrentSpot(currentSpace);
         
         Window owner = ((Button) event.getSource()).getScene().getWindow();
         stage.initOwner(owner);
@@ -228,7 +226,7 @@ public class FXMLController implements Initializable {
 				
 			statement.executeBatch();
 			conn.commit();
-			chosenSpace.setUserID(currentUser.getUserID());
+			chosenSpace.setUserID(Session.currentUser.getUserID());
 		} catch(SQLException e) {
 			System.out.println("DB Error: " + e.getMessage());
 		}	
