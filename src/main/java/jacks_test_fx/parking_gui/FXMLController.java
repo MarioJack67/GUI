@@ -100,7 +100,6 @@ public class FXMLController implements Initializable {
         stage.initOwner(owner);
         stage.showAndWait();
 
-		updateParkingTable(currentSpace.getParkingID());
 	}
     
     @FXML
@@ -192,7 +191,7 @@ public class FXMLController implements Initializable {
 					spot.setStyle("-fx-background-color: #8B0000");
 					image.setImage(carImage);
 				} else {
-					spot.setStyle("-fx-background-color: #8B0000");
+					spot.setStyle("-fx-background-color: #2C4C3B");
 					image.setImage(null);
 				}
 			}

@@ -38,18 +38,20 @@ public class CancelReservationController implements Initializable {
 	 */
 	private void cancelReservation() {
 		//Update ParkingSpot
-		String sql = "UPDATE ParkingSpots SET isTaken = ?,userId = ? where spotID = ?;";
+		String sql = "UPDATE ParkingSpots SET isTaken = ?,userID = ? WHERE spotID = ?;";
 		try(Connection conn = DBConnection.getConnection(); //Establish connection to Database
 				PreparedStatement statement = conn.prepareStatement(sql)){
 
 			//Prepare SQL Statement
-			conn.setAutoCommit(true);
+			conn.setAutoCommit(false);
 			statement.setInt(1, 0);
 			statement.setNull(2, java.sql.Types.NULL);
 			statement.setInt(3, currentSpot.getParkingID());
 			statement.addBatch();
 
 			statement.executeBatch();
+			conn.commit();
+			currentSpot.setTaken(false);
 			showSuccessDialog();
 
 		} catch(SQLException e) {
