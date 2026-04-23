@@ -73,30 +73,18 @@ public class AdminCarRegistrationController implements Initializable{
     private Label makeWarn, modelWarn, yearWarn, plateWarn, submitWarn;
 
     @FXML
-    void addNewUser(ActionEvent event) {
-    	try {
-			MainApp.setRoot("registerUserWindow","Parking Lot Managment System");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    void addNewUser(ActionEvent event) throws IOException {
+    	SceneUtility.switchScene(event, "registerUserWindow", "Register User");
+    	SceneUtility.previousStages.add("adminCarRegistration");
     }
 
     @FXML
-    void retrieveInfo(ActionEvent event) {
+    void retrieveInfo(ActionEvent event) throws IOException {
     	submitWarn.setText("");
     	if(validFields()) {
 			updateCarTable();
-//			Car newCar = new Car(make.getText(), model.getText(), year.getText(), plate.getText(), userComboBox.getValue());
-//			cars.add(newCar);
-//			Stage stage = (Stage) submit.getScene().getWindow();
-//			stage.close();
-			try {
-				MainApp.switchRoot("citation");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			SceneUtility.switchScene(event, "citation", "Citation");
+//			}
 		}
     }
     

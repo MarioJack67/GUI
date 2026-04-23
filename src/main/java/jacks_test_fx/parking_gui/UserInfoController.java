@@ -1,5 +1,6 @@
 package jacks_test_fx.parking_gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,15 +11,22 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class UserInfoController implements Initializable {
 
@@ -29,6 +37,8 @@ public class UserInfoController implements Initializable {
 		yearCol.setCellValueFactory(new PropertyValueFactory<>("year"));
 		modelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
 		plateCol.setCellValueFactory(new PropertyValueFactory<>("plate"));
+		populateUserInfo();
+		populateRegisteredCars(getRegisteredCars());
 	};
 	public void setupData(int userID, Stage stage) {
 		setStage(stage);
@@ -56,9 +66,18 @@ public class UserInfoController implements Initializable {
 	private TableColumn<Car, String> modelCol;
 	@FXML 
 	private TableColumn<Car, String> plateCol;
+	@FXML
+    private Button createCitationButton;
 	
 	private Stage stage;
 	private User user;
+	
+	@FXML
+    void createNewCitation(ActionEvent event) throws IOException{
+		System.out.println("Create Citation Button Pressed!");
+		SceneUtility.switchScene(event, "citation", "Citation");
+		
+    }
 	
 	private void populateRegisteredCars(ArrayList<Car> cars) {
 		for(Car car : cars) {
@@ -78,7 +97,7 @@ public class UserInfoController implements Initializable {
 
 			//Prepare SQL Statement
 			conn.setAutoCommit(true);
-			statement.setInt(1, user.getUserID());
+			statement.setInt(1, Session.viewedUser.getUserID());
 
 			//Get results of sql statement
 			ResultSet sqlRows = statement.executeQuery();
@@ -99,11 +118,11 @@ public class UserInfoController implements Initializable {
 	}
 	private void populateUserInfo() {
 		try {
-			userIDOutputLbl.setText(user.getUserID()+ "");
-			firstNameOutputLbl.setText(user.getFname());
-			lastNameOutputLbl.setText(user.getLname());
-			addressOutputLbl.setText(user.getAddress());
-			phoneNumberOutputLbl.setText(user.getPhoneNum());
+			userIDOutputLbl.setText(Session.viewedUser.getUserID()+ "");
+			firstNameOutputLbl.setText(Session.viewedUser.getFname());
+			lastNameOutputLbl.setText(Session.viewedUser.getLname());
+			addressOutputLbl.setText(Session.viewedUser.getAddress());
+			phoneNumberOutputLbl.setText(Session.viewedUser.getPhoneNum());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

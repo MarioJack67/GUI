@@ -39,8 +39,8 @@ public class FXMLController implements Initializable {
 	public static String databaseURL = "srv526.hstgr.io";
 	
 	//Buttons and lists from the GUI itself
-	@FXML private Button spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12;
-	@FXML private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12;
+	@FXML private Button spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12, spot13, spot14, spot15, spot16, spot17, spot18, spot19, spot20, spot21, spot22, spot23, spot24;
+	@FXML private ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18, image19, image20, image21, image22, image23, image24;
 	List<Button> parkingButtons = new ArrayList<>();
 	List<ParkingSpot> parkingSpaces = new ArrayList<>();
 	List<ImageView> images = new ArrayList<>();
@@ -54,12 +54,13 @@ public class FXMLController implements Initializable {
     	//get ParkingSpot object attached to the clicked button
     	ParkingSpot currentSpace = (ParkingSpot) currentSpot.getUserData();
     	if(!currentSpace.isTaken()) {
-    		openRegistration(event, currentSpace);
-    	}else {
-    		if(currentSpace.getUserID() == currentUser.getUserID()) {
-        		openCancelRegistration(event, currentSpace);    			
-    		}
-    	}
+            Session.parkingSpot = currentSpace;
+            System.out.println("Session.parkingSpot Updated: " + Session.parkingSpot);
+            SceneUtility.popoutScene(event, "carSelection", "Select Your Car");
+            
+            //As a small tests, fetches and prints car model from the registration screen
+            updateParkingTable(currentSpace.getParkingID());
+    	} 
     }
 
 	private void openRegistration(ActionEvent event, ParkingSpot currentSpace) throws IOException {
@@ -108,23 +109,11 @@ public class FXMLController implements Initializable {
     	//get ParkingSpot object attached to the clicked button
     	ParkingSpot currentSpace = (ParkingSpot) currentSpot.getUserData();
     	if(currentSpace.isTaken()) {
-    		showUserInfo(event, currentSpace);
-    	}else {
-    		showWarning("No Registered User Found for this location");
-    	}
-    }
-    /**
-     * Creates a warning Dialog Box popup.
-     * Should be used to provide user feedback when an invalid action is taken.
-     * @param message to be displayed
-     */
-    private void showWarning(String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-
-        alert.showAndWait();
+    		//update user space info
+    		Session.viewedUser =  DBConnection.getUserFromDatabase(currentSpace.getUserID()); //currentSpace.getUserID();
+    		System.out.println("Current Space User Updated: " + Session.viewedUser);
+    		SceneUtility.popoutScene(event, "userInfoWindow", "User Info");
+    	} 
     }
 
 	private void showUserInfo(ActionEvent event, ParkingSpot currentSpace) throws IOException {
@@ -144,7 +133,7 @@ public class FXMLController implements Initializable {
 	}
     @FXML
     private void useParkingSpace(ActionEvent event) throws IOException {
-    	switch (currentUser.getAccessLevel()){
+    	switch (Session.currentUser.getAccessLevel()){
     	case 1:
     		adminUseParkingSpace(event);
     		break;
@@ -163,8 +152,8 @@ public class FXMLController implements Initializable {
      * @param rb - Any resource bundles that need to be included.
      */
     public void initialize(URL url, ResourceBundle rb) {
-    	parkingButtons.addAll(Arrays.asList(spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12));
-    	images.addAll(Arrays.asList(image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12));
+    	parkingButtons.addAll(Arrays.asList(spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12, spot13, spot14, spot15, spot16, spot17, spot18, spot19, spot20, spot21, spot22, spot23, spot24));
+    	images.addAll(Arrays.asList(image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18, image19, image20, image21, image22, image23, image24));
     	try(Connection conn = DBConnection.getConnection()){
     		for(int i = 0; i < parkingButtons.size(); i++) {
         		parkingSpaces.add(fetchParkingTable(i + 1, conn));
@@ -223,7 +212,7 @@ public class FXMLController implements Initializable {
 			statement.setString(2, chosenSpace.getType().name());
 			statement.setString(3, chosenSpace.getValue().name());
 			statement.setBoolean(4, chosenSpace.isTaken());
-			statement.setInt(5, currentUser.getUserID());
+			statement.setInt(5, Session.currentUser.getUserID());
 			statement.addBatch();
 				
 			statement.executeBatch();

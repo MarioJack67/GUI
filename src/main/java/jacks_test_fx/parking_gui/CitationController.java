@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 public class CitationController implements Initializable {
 
@@ -53,24 +54,19 @@ public class CitationController implements Initializable {
     private Label submitWarn;
 
     @FXML
-    void addNewCar(ActionEvent event) {
+    void addNewCar(ActionEvent event) throws IOException {
     	System.out.println("New Car Button Pressed!");
-    	try {
-			MainApp.switchRoot("adminCarRegistration");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	SceneUtility.switchScene(event, "adminCarRegistration", "Register a Car");
     }
     
     @FXML
-    void submitNewTicket(ActionEvent event) {
+    void submitNewTicket(ActionEvent event) throws IOException{
     	submitWarn.setText("");
     	System.out.println("Submit Ticket Button Pressed!");
-    	updateCitationTable();
+    	updateCitationTable(event);
     }
     
-private void updateCitationTable(){
+private void updateCitationTable(ActionEvent event) throws IOException{
 		
 		Car selectedCar = carComboBox.getValue();
 		
@@ -105,12 +101,10 @@ private void updateCitationTable(){
 				statement.executeUpdate();
 				
 				conn.commit();
-				try {
-					MainApp.switchRoot("primary");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				MainApp.switchRoot("primary"); //Depreciated
+//				SceneUtility.switchScene(event, "primary", "Parking Map");
+				Stage stage = (Stage) submitTicketButton.getScene().getWindow();
+				stage.close();
 			} catch(SQLException e) {
 				System.out.println("DB Error: " + e.getMessage());
 			}
@@ -174,5 +168,20 @@ private void updateCitationTable(){
     		}
     	return carsList;
     }
+    
+    private Stage stage;
+	private User user;
+    
+    /**
+	 * Used to provide a closing method once this window has completed its role
+	 * @param stage
+	 */
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+	
+	public void setUser(User user) {
+		user = this.user;
+	}
 
 }

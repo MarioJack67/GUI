@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -11,106 +12,218 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TitledPane alignment="CENTER" animated="false" collapsible="false" text="Choose a Parking Space!" textAlignment="CENTER" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.FXMLController">
+<ScrollPane prefHeight="568.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.FXMLController">
    <content>
-      <HBox prefHeight="423.0" prefWidth="716.0" spacing="50.0">
-         <children>
-            <VBox prefHeight="462.0" prefWidth="328.0">
+      <TitledPane alignment="CENTER" animated="false" collapsible="false" text="Choose a Parking Space!" textAlignment="CENTER">
+         <content>
+            <HBox prefHeight="423.0" prefWidth="716.0" spacing="50.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="347.0" text="Lot 1A" textAlignment="CENTER">
-                     <font>
-                        <Font name="Lucida Sans Typewriter Regular" size="18.0" />
-                     </font>
-                  </Label>
-                  <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="328.0" styleClass="myGridStyle" stylesheets="@../styles/application.css">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <VBox prefHeight="462.0" prefWidth="328.0">
                      <children>
-                        <Button fx:id="spot1" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="148.0" prefWidth="183.0" styleClass="grid-cell">
-                           <graphic>
-                              <ImageView fx:id="image1" fitHeight="112.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
-                        <Button fx:id="spot2" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="145.0" prefWidth="183.0" styleClass="grid-cell" GridPane.rowIndex="1">
-                           <graphic>
-                              <ImageView fx:id="image2" fitHeight="109.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
-                        <Button fx:id="spot4" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="144.0" prefWidth="206.0" styleClass="grid-cell-2" GridPane.columnIndex="1">
-                           <graphic>
-                              <ImageView fx:id="image4" fitHeight="108.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
-                        <Button fx:id="spot3" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="150.0" prefWidth="183.0" styleClass="grid-cell" GridPane.rowIndex="2">
-                           <graphic>
-                              <ImageView fx:id="image3" fitHeight="100.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
-                        <Button fx:id="spot5" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="142.0" prefWidth="186.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <graphic>
-                              <ImageView fx:id="image5" fitHeight="116.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
-                        <Button fx:id="spot6" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="160.0" prefWidth="183.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <graphic>
-                              <ImageView fx:id="image6" fitHeight="109.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
+                        <Label alignment="CENTER" prefHeight="25.0" prefWidth="347.0" text="Lot 1A" textAlignment="CENTER">
+                           <font>
+                              <Font name="Lucida Sans Typewriter Regular" size="18.0" />
+                           </font>
+                        </Label>
+                        <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="328.0" styleClass="myGridStyle" stylesheets="@../styles/application.css">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button fx:id="spot1" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="148.0" prefWidth="183.0" styleClass="grid-cell">
+                                 <graphic>
+                                    <ImageView fx:id="image1" fitHeight="112.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot2" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="145.0" prefWidth="183.0" styleClass="grid-cell" GridPane.rowIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image2" fitHeight="109.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot4" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="144.0" prefWidth="206.0" styleClass="grid-cell-2" GridPane.columnIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image4" fitHeight="108.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot3" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="150.0" prefWidth="183.0" styleClass="grid-cell" GridPane.rowIndex="2">
+                                 <graphic>
+                                    <ImageView fx:id="image3" fitHeight="100.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot5" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="142.0" prefWidth="186.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image5" fitHeight="116.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot6" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="160.0" prefWidth="183.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <graphic>
+                                    <ImageView fx:id="image6" fitHeight="109.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </GridPane>
+                        <Label alignment="CENTER" prefHeight="25.0" prefWidth="347.0" text="Lot 1B" textAlignment="CENTER">
+                           <font>
+                              <Font name="Lucida Sans Typewriter Regular" size="18.0" />
+                           </font>
+                        </Label>
+                        <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="328.0" styleClass="myGridStyle" stylesheets="@../styles/application.css">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Button fx:id="spot13" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="148.0" prefWidth="183.0" styleClass="grid-cell">
+                                 <graphic>
+                                    <ImageView fx:id="image13" fitHeight="112.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot14" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="145.0" prefWidth="183.0" styleClass="grid-cell" GridPane.rowIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image14" fitHeight="109.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot16" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="144.0" prefWidth="206.0" styleClass="grid-cell-2" GridPane.columnIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image16" fitHeight="108.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot15" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="150.0" prefWidth="183.0" styleClass="grid-cell" GridPane.rowIndex="2">
+                                 <graphic>
+                                    <ImageView fx:id="image15" fitHeight="100.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot17" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="142.0" prefWidth="186.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image17" fitHeight="116.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot18" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="160.0" prefWidth="183.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <graphic>
+                                    <ImageView fx:id="image18" fitHeight="109.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </GridPane>
                      </children>
-                  </GridPane>
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <Label alignment="CENTER" prefHeight="6.0" prefWidth="300.0" text="Lot 2A" textAlignment="CENTER">
-                     <font>
-                        <Font name="Lucida Sans Typewriter Regular" size="18.0" />
-                     </font>
-                  </Label>
-                  <GridPane prefHeight="424.0" prefWidth="295.0" stylesheets="@../styles/application.css">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="266.8" minHeight="10.0" prefHeight="140.79998779296875" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="226.1999839782715" minHeight="0.0" prefHeight="141.60001220703123" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="165.40001220703124" minHeight="10.0" prefHeight="140.80001220703127" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  </VBox>
+                  <VBox>
                      <children>
-                        <Button fx:id="spot7" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="143.0" prefWidth="162.0" styleClass="grid-cell">
-                           <graphic>
-                              <ImageView fx:id="image7" fitHeight="108.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
-                        <Button fx:id="spot8" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="142.0" prefWidth="200.0" styleClass="grid-cell" GridPane.rowIndex="1">
-                           <graphic>
-                              <ImageView fx:id="image8" fitHeight="112.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
-                        <Button fx:id="spot9" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="162.0" prefWidth="162.0" styleClass="grid-cell" GridPane.rowIndex="2">
-                           <graphic>
-                              <ImageView fx:id="image9" fitHeight="106.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
-                        <Button fx:id="spot10" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="141.0" prefWidth="162.0" styleClass="grid-cell-2" GridPane.columnIndex="1">
-                           <graphic>
-                              <ImageView fx:id="image10" fitHeight="108.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
-                        <Button fx:id="spot11" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="142.0" prefWidth="166.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <graphic>
-                              <ImageView fx:id="image11" fitHeight="101.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
-                        <Button fx:id="spot12" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="169.0" prefWidth="160.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <graphic>
-                              <ImageView fx:id="image12" fitHeight="111.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic></Button>
+                        <Label alignment="CENTER" prefHeight="6.0" prefWidth="300.0" text="Lot 2A" textAlignment="CENTER">
+                           <font>
+                              <Font name="Lucida Sans Typewriter Regular" size="18.0" />
+                           </font>
+                        </Label>
+                        <GridPane prefHeight="424.0" prefWidth="295.0" stylesheets="@../styles/application.css">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="266.8" minHeight="10.0" prefHeight="140.79998779296875" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="226.1999839782715" minHeight="0.0" prefHeight="141.60001220703123" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="165.40001220703124" minHeight="10.0" prefHeight="140.80001220703127" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button fx:id="spot7" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="143.0" prefWidth="162.0" styleClass="grid-cell">
+                                 <graphic>
+                                    <ImageView fx:id="image7" fitHeight="108.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot8" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="142.0" prefWidth="200.0" styleClass="grid-cell" GridPane.rowIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image8" fitHeight="112.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot9" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="162.0" prefWidth="162.0" styleClass="grid-cell" GridPane.rowIndex="2">
+                                 <graphic>
+                                    <ImageView fx:id="image9" fitHeight="106.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot10" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="141.0" prefWidth="162.0" styleClass="grid-cell-2" GridPane.columnIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image10" fitHeight="108.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot11" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="142.0" prefWidth="166.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image11" fitHeight="101.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot12" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="169.0" prefWidth="160.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <graphic>
+                                    <ImageView fx:id="image12" fitHeight="111.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </GridPane>
+                        <Label alignment="CENTER" prefHeight="6.0" prefWidth="300.0" text="Lot 2B" textAlignment="CENTER">
+                           <font>
+                              <Font name="Lucida Sans Typewriter Regular" size="18.0" />
+                           </font>
+                        </Label>
+                        <GridPane prefHeight="424.0" prefWidth="295.0" stylesheets="@../styles/application.css">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="266.8" minHeight="10.0" prefHeight="140.79998779296875" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="226.1999839782715" minHeight="0.0" prefHeight="141.60001220703123" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="165.40001220703124" minHeight="10.0" prefHeight="140.80001220703127" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Button fx:id="spot19" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="143.0" prefWidth="162.0" styleClass="grid-cell">
+                                 <graphic>
+                                    <ImageView fx:id="image19" fitHeight="108.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot20" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="142.0" prefWidth="200.0" styleClass="grid-cell" GridPane.rowIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image20" fitHeight="112.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot21" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="162.0" prefWidth="162.0" styleClass="grid-cell" GridPane.rowIndex="2">
+                                 <graphic>
+                                    <ImageView fx:id="image21" fitHeight="106.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot22" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="141.0" prefWidth="162.0" styleClass="grid-cell-2" GridPane.columnIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image22" fitHeight="108.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot23" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="142.0" prefWidth="166.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <graphic>
+                                    <ImageView fx:id="image23" fitHeight="101.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="spot24" mnemonicParsing="false" onAction="#useParkingSpace" prefHeight="169.0" prefWidth="160.0" styleClass="grid-cell-2" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <graphic>
+                                    <ImageView fx:id="image24" fitHeight="111.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </GridPane>
                      </children>
-                  </GridPane>
+                  </VBox>
                </children>
-            </VBox>
-         </children>
-      </HBox>
+            </HBox>
+         </content>
+         <font>
+            <Font name="Lucida Console" size="24.0" />
+         </font>
+      </TitledPane>
    </content>
-   <font>
-      <Font name="Lucida Console" size="24.0" />
-   </font>
-</TitledPane>
+</ScrollPane>

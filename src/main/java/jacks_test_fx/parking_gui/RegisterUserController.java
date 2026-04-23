@@ -1,5 +1,6 @@
 package jacks_test_fx.parking_gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -49,8 +51,9 @@ public class RegisterUserController implements Initializable {
 	 * Takes the data from the form and submits it to the database
 	 * Checks to make sure that all forms are filled and have no warnings
 	 * @author Spencer J Peck
+	 * @throws IOException 
 	 */
-	private void submitUser() {
+	private void submitUser(ActionEvent event) throws IOException {
 		if(metRequirements()) {
 			//Insert the User into SQL Statement
 			String sql = "INSERT INTO Users (firstName, LastName, address, phoneNumber) VALUES (?, ?, ?, ?);";
@@ -68,7 +71,8 @@ public class RegisterUserController implements Initializable {
 
 				statement.executeBatch();
 				showSuccessDialog();
-			    stage.close();
+				SceneUtility.switchScene(event, "logInWindow", "Parking Lot Managment System");
+//			    stage.close();
 
 			} catch(SQLException e) {
 				System.out.println("DB Error: " + e.getMessage());
