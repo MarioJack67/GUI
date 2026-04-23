@@ -15,7 +15,7 @@
    <children>
       <HBox alignment="CENTER" layoutX="176.0" layoutY="60.0" prefHeight="53.0" prefWidth="248.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="60.0">
          <children>
-            <ComboBox fx:id="carComboBox" prefHeight="27.0" prefWidth="203.0" promptText="Select an existing car..." >
+            <ComboBox fx:id="carComboBox" prefHeight="27.0" prefWidth="203.0" promptText="Select an existing car...">
     		</ComboBox>
             <Button fx:id="newCarButton" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#addNewCar" prefHeight="25.0" prefWidth="25.0" text="+">
                <HBox.margin>
@@ -31,6 +31,7 @@
       <VBox alignment="CENTER" layoutX="220.0" layoutY="200.0" prefHeight="46.0" prefWidth="160.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="200.0">
          <children>
             <Button fx:id="submitTicketButton" alignment="CENTER" mnemonicParsing="false" onAction="#submitNewTicket" prefHeight="36.0" prefWidth="116.0" text="Register" />
+            <Button fx:id="paidButton" mnemonicParsing="false" onAction="#checkPayment" prefHeight="26.0" prefWidth="113.0" text="I have paid" visible="false" />
          </children>
       </VBox>
       <HBox alignment="CENTER" layoutX="33.0" layoutY="126.0" prefHeight="30.0" prefWidth="535.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="32.33333333333337" AnchorPane.topAnchor="126.0">
