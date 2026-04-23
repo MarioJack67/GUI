@@ -20,6 +20,7 @@ public class MainApp extends Application {
         stage=s;
         stage.setMinWidth(MIN_WIDTH);
         stage.setMinHeight(MIN_HEIGHT);
+        Session.host = getHostServices();
         setRoot("logInWindow","Parking Lot Managment System");
     }
 

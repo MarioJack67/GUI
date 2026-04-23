@@ -2,6 +2,7 @@ package jacks_test_fx.parking_gui;
 
 import java.io.IOException;
 
+
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -153,6 +155,7 @@ public class FXMLController implements Initializable {
      * while still remembering which spots were already reserved.
      * @param url - The URL to load up
      * @param rb - Any resource bundles that need to be included.
+     * @author Jack B
      */
     public void initialize(URL url, ResourceBundle rb) {
     	parkingButtons.addAll(Arrays.asList(spot1, spot2, spot3, spot4, spot5, spot6, spot7, spot8, spot9, spot10, spot11, spot12, spot13, spot14, spot15, spot16, spot17, spot18, spot19, spot20, spot21, spot22, spot23, spot24));
@@ -172,6 +175,7 @@ public class FXMLController implements Initializable {
 	 * Attaches a listener to the isTaken field in parking spot object of each button (Refactored)
 	 * @param spot - A JavaFX button that will be attached to a ParkingSpot object
 	 * @param parkingSpace - The object that stores specific data on a particular parking space button
+	 * @author Jack B
 	 */
 	private void attachButtonListener(Button spot, ParkingSpot parkingSpace, ImageView image) {
 		spot.setUserData(parkingSpace); //bind button and ParkingSpot
@@ -202,6 +206,8 @@ public class FXMLController implements Initializable {
 	 * This functions specifically updates the ParkingSpots table in the DB when called
 	 * It updates all values in the table for a single record and updates an entire batch
 	 * so that it doesn't have to be called several times for multiple objects
+	 * @param id - Which parking spot will be updated?
+	 * @author Jack B
 	 */
 	private void updateParkingTable(int id) {
 		String sql = "INSERT INTO ParkingSpots (spotID, type, value, isTaken, userID) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE isTaken=VALUES(isTaken), userID=VALUES(userID);";
@@ -230,6 +236,7 @@ public class FXMLController implements Initializable {
 	 * Returns an single, individual ParkingSpot from the DB based on the associated id
 	 * @param id - The unique key to find the specific ParkingSpot object in DB
 	 * @return A new ParkingSpot object populated with it's same data from the DB
+	 * @author Jack B
 	 */
 	private ParkingSpot fetchParkingTable(int id, Connection conn) {
 		String sql = "SELECT * FROM ParkingSpots WHERE spotID = ?;";
@@ -249,11 +256,17 @@ public class FXMLController implements Initializable {
 	/**
 	 * Used to provide a closing method once this window has completed its role
 	 * @param stage
+	 * @author Jack B
 	 */
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
 	
+	/**
+	 * Pass the current user from the login page to primary controller
+	 * @param user - The current user who is logged in
+	 * @author Jack B
+	 */
 	public void setUser(User user) {
 		currentUser = user;
 	}
