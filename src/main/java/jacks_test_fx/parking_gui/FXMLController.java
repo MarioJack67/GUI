@@ -20,7 +20,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -60,7 +59,13 @@ public class FXMLController implements Initializable {
             
             //As a small tests, fetches and prints car model from the registration screen
             updateParkingTable(currentSpace.getParkingID());
-    	} 
+    	}else {
+    		if(currentSpace.getUserID() == currentUser.getUserID()) {
+                SceneUtility.popoutScene(event, "unregisterParkingSpot", "Cancel Your Reservation?");
+        		openCancelRegistration(event, currentSpace);    			
+    		}
+    	}
+
     }
 
 	private void openRegistration(ActionEvent event, ParkingSpot currentSpace) throws IOException {
