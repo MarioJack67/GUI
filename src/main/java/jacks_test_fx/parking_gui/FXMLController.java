@@ -18,16 +18,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-impimport javafx.scene.control.Alert;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-ort javafx.fxml.import javafx.stage.Modalityimport javafx.stage.Window;
-;
-Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  * This class serves as the primary controller for the Parking Lot GUI, including buttons and DB
@@ -61,7 +61,13 @@ public class FXMLController implements Initializable {
             
             //As a small tests, fetches and prints car model from the registration screen
             updateParkingTable(currentSpace.getParkingID());
-    	} 
+    	}else {
+    		if(currentSpace.getUserID() == currentUser.getUserID()) {
+                SceneUtility.popoutScene(event, "unregisterParkingSpot", "Cancel Your Reservation?");
+        		openCancelRegistration(event, currentSpace);    			
+    		}
+    	}
+
     }
 
 	private void openRegistration(ActionEvent event, ParkingSpot currentSpace) throws IOException {
