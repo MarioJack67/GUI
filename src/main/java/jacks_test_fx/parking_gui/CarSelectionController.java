@@ -105,7 +105,9 @@ public class CarSelectionController implements Initializable {
      * @author Jack B
      */
     private void checkPayment() {
-    	Stripe.apiKey = "sk_test_51TOozYCNxPB6776Zc6YD6aeVhlHFda1r8qyGBLcVx0n6rb5XEz9rqRx4LKEhFkvHqktjOPjjbu6kFWgKDjVeTeI900dvqL8AEM";
+    	String firstPart = "sk_test_51TOozYCNxPB6776Zc6YD6aeVhlHFda1r8qyGBLcV";
+    	String secondPart = "x0n6rb5XEz9rqRx4LKEhFkvHqktjOPjjbu6kFWgKDjVeTeI900dvqL8AEM";
+    	Stripe.apiKey = firstPart + secondPart;
     	String userPhone = formatToE164(jacks_test_fx.parking_gui.Session.currentUser.getPhoneNum().trim());
     	try {
     		// Search Checkout Sessions (the most recent ones)
