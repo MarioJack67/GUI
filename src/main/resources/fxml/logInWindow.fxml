@@ -4,15 +4,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.LogInWindowController">
+
+<AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jacks_test_fx.parking_gui.LogInWindowController">
    <children>
-      <GridPane prefHeight="500.0" prefWidth="600.0">
+      <GridPane prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -94,8 +95,8 @@
                </GridPane.margin>
             </Label>
             <Button mnemonicParsing="false" onAction="#openUserRegistration" text="Register" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-            <Button mnemonicParsing="false" text="Login" onAction="#logIn" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button mnemonicParsing="false" onAction="#logIn" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>
-</Pane>
+</AnchorPane>
