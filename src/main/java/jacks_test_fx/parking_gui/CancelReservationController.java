@@ -28,7 +28,6 @@ public class CancelReservationController implements Initializable {
 	private Button closeBtn;
 	
 	private Stage stage;
-	private ParkingSpot currentSpot;
 	
 	@FXML
 	/**
@@ -46,23 +45,18 @@ public class CancelReservationController implements Initializable {
 			conn.setAutoCommit(false);
 			statement.setInt(1, 0);
 			statement.setNull(2, java.sql.Types.NULL);
-			statement.setInt(3, currentSpot.getParkingID());
+			statement.setInt(3, Session.parkingSpot.getParkingID());
 			statement.addBatch();
 
 			statement.executeBatch();
 			conn.commit();
-			currentSpot.setTaken(false);
+			Session.parkingSpot.setTaken(false);
 			showSuccessDialog();
 
 		} catch(SQLException e) {
 			System.out.println("DB Error: " + e.getMessage());
 		}
-		close();
 
-	}
-	@FXML
-	private void close() {
-		stage.close();
 	}
 
 	/**
@@ -76,16 +70,6 @@ public class CancelReservationController implements Initializable {
 	    alert.setHeaderText(null);
 	    alert.setContentText("Reservation Canceled!");
 	    alert.showAndWait();
-	}
-	/**
-	 * Used to provide a closing method once this window has completed its role
-	 * @param stage
-	 */
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
-	public void setCurrentSpot(ParkingSpot currentSpot) {
-		this.currentSpot = currentSpot;
 	}
 	
 }
