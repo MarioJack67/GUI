@@ -28,6 +28,7 @@ import com.stripe.param.PaymentIntentRetrieveParams;
 import com.stripe.param.PaymentIntentSearchParams;
 import com.stripe.param.checkout.SessionListParams;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -105,9 +106,8 @@ public class CarSelectionController implements Initializable {
      * @author Jack B
      */
     private void checkPayment() {
-    	String firstPart = "sk_test_51TOozYCNxPB6776Zc6YD6aeVhlHFda1r8qyGBLcV";
-    	String secondPart = "x0n6rb5XEz9rqRx4LKEhFkvHqktjOPjjbu6kFWgKDjVeTeI900dvqL8AEM";
-    	Stripe.apiKey = firstPart + secondPart;
+    	Dotenv evn = Dotenv.load();
+    	Stripe.apiKey = evn.get("STRIPE_SECRET_KEY");
     	String userPhone = formatToE164(jacks_test_fx.parking_gui.Session.currentUser.getPhoneNum().trim());
     	try {
     		// Search Checkout Sessions (the most recent ones)

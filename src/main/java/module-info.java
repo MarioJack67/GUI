@@ -6,6 +6,7 @@ module jacks_test_fx {
 	requires transitive javafx.base;
 	requires transitive java.sql;
 	requires com.stripe;
+	requires io.github.cdimascio.dotenv.java;
     opens jacks_test_fx.parking_gui to javafx.fxml;
     exports jacks_test_fx.parking_gui;
 }
