@@ -1,1 +1,3 @@
-# GUI
+# Simulated Parking System
+## Project Overview
+###### Contained in this project are Java and CSS files that comprise the front and backend of this system. We built a GUI using modern JavaFX structures to create an interactive map of the parking where a user can register multiple cars and select a parking spot to reserve. We use a remote and hosted SQL database to hold transactional records for parking reservations and user information. User's can create an account with us by providing a valid username and password to be stored within our table records. Furthermore, the system features an integrating payment system using Stripe's API that allows for various payment methods including credit cards, Apple Pay, Cashapp, Klarna, etc.
